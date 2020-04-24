@@ -4,10 +4,16 @@ class pengembalian_m extends CI_Model {
 
 	public function get($id = null)
 	{
-		$this->db->from('pengembalian');
+		$this->db->from('v_transaksi_kembali');
 		if($id != null) {
-			$this->db->where('pengembalian_id', $id);
+			$this->db->where('no_trans', $id);
 		}
+		$query = $this->db->get();
+		return $query;
+	}
+
+	public function get_process(){
+		$this->db->from('v_transaksi_process');
 		$query = $this->db->get();
 		return $query;
 	}

@@ -12,6 +12,8 @@ class pengembalian extends CI_Controller {
 	public function index()
 	{
 		$data['row'] = $this->pengembalian_m->get();
+		$data['process'] = $this->pengembalian_m->get_process();
+
 		$this->template->load('template', 'pengembalian/pengembalian_data', $data);
 	}
 

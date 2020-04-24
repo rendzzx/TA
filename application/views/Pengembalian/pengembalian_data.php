@@ -2,7 +2,6 @@
       <center> DATA PENGEMBALIAN </center>
 <!--       <ol class="breadcrumb">
         <li><a href="<?=site_url('pengembalian') ?>"><i class="fa fa-user"></i>pengembalian</a></li>
-        <!-- <li class="active">pengembalian</li>
       </ol>
     </section> -->
 
@@ -16,24 +15,59 @@
               <a href="<?=site_url('pengembalian/add') ?>" class="btn btn-primary btn-flat">
                 <i class="fa fa-hourglass-end"></i> Pengembalian Tools
               </a>
-              <!-- <a href="<?=site_url('pengembalian/add') ?>" class="btn btn-warning btn-flat">
-                <i class="fa fa-print"></i> Export Data
-              </a> -->
-
             </div>
           </div>
-          <div class="box-body table-responsive">
-         <!-- <?php print_r($row->result()) ?> -->
 
+          <div class="box-body table-responsive">
+              <table class="table table-bordered table-striped" id="tableprocess">
+                <thead>
+                  <tr>
+                    <th>NO</th>
+                    <th>NO TRANSAKSI</th>
+                    <th>Karyawan</th>
+                    <th>ALAT</th>
+                    <th>JUMLAH PINJAM</th>
+                    <th>TANGGAL PINJAM</th>
+                    <th>KETERANGAN</th>
+                    <th><center>AKSI</center></th>
+                  </tr>
+                </thead>
+                <tbody>
+                     <?php $no = 1;
+                     foreach ($process->result() as $key) { ?>
+                    <tr>
+                        <td><?=$no++?>.</td>
+                        <td><?=$key->no_trans?></td>
+                        <td><?=$key->nama_karyawan?></td>
+                        <td><?=$key->nama_tools?></td>
+                        <td><?=$key->qty?></td>
+                        <td><?=$key->tanggal_pinjam?></td>
+                        <td><?=$key->keterangan?></td>
+                        <td class="text-center" width="160px">
+                          <a href="<?=site_url('pengembalian/kembali/'.$key->no_trans)?>" class="btn btn-primary btn-xs">
+                              <i class="fa fa-send"></i> Kembalikan
+                          </a>
+                        </td>
+                    </tr>
+                    <?php
+                    } ?>
+                </tbody>
+              </table>
+          </div>
+
+          <br><br><br>
+
+          <div class="box-body table-responsive">
               <table class="table table-bordered table-striped" id="table1">
                 <thead>
                   <tr>
                     <th>NO</th>
                     <th>NO TRANSAKSI</th>
-                    <th>NIK</th>
-                    <th>KODE ALAT</th>
+                    <th>Karyawan</th>
+                    <th>ALAT</th>
                     <th>JUMLAH PINJAM</th>
                     <th>TANGGAL PINJAM</th>
+                    <th>TANGGAL KEMBALI</th>
                     <th>KETERANGAN</th>
                     <th><center>AKSI</center></th>
                   </tr>
@@ -45,10 +79,11 @@
                         <!-- <td><?=$data->user_id?>.</td> -->
                         <td><?=$no++?>.</td>
                         <td><?=$data->no_trans?></td>
-                        <td><?=$data->nik?></td>
-                        <td><?=$data->kd_alat?></td>
-                        <td><?=$data->jumlah?></td>
-                        <td><?=$data->tgl_pinjam?></td>
+                        <td><?=$data->nama_karyawan?></td>
+                        <td><?=$data->nama_tools?></td>
+                        <td><?=$data->qty?></td>
+                        <td><?=$data->tanggal_pinjam?></td>
+                        <td><?=$data->tanggal_kembali?></td>
                         <td><?=$data->keterangan?></td>
                         <td class="text-center" width="160px">
                           <a href="<?=site_url('pengembalian/edit/'.$data->no_trans)?>" class="btn btn-primary btn-xs">
