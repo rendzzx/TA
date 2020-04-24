@@ -24,29 +24,32 @@
           		<div class="col-md-4 col-md-offset-4">
           			<form action="<?=site_url('pengembalian/proses')?>" method="post">
           				<div class="form-group">
-                  <div class="form-group">
                     <label> NO TRANSAKSI *</label>
-                    <input type="hidden" name="id" value="<?=$row->pengembalian_id?>">
-                    <input type="text" name="no_trans" value="<?=$row->no_trans?>" class="form-control" required>
-                  </div>
-                    <label> NIK *</label>
-                    <input type="text" name="nik" value="<?=$row->nik?>" class="form-control" required>
+                    <input type="text" name="no_trans" value="<?=$row->no_trans?>" class="form-control" readonly>
                   </div>
                   <div class="form-group">
-                    <label> KODE ALAT *</label>
-                    <input type="text" name="kd" value="<?=$row->kd_alat?>" class="form-control" required>
+                    <label>Karyawan</label>
+                    <select name="tools" class="form-control" readonly>
+                      <option value="<?= $row->karyawan_id ?>"><?= $row->karyawan_id.' - '.$row->nama_karyawan ?></option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Alat</label>
+                    <select name="tools" class="form-control" readonly>
+                      <option value="<?= $row->alat_id ?>"><?= $row->alat_id.' - '.$row->nama_tools ?></option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label> JUMLAH ALAT *</label>
-                    <input type="text" name="jml" value="<?=$row->jumlah?>" class="form-control" required>
+                    <input type="number" name="jml" value="<?=$row->qty?>" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <label> TANGGAL PINJAM *</label>
-                    <input type="date" name="tgl" value="<?=$row->tgl_pinjam?>" class="form-control" required>
+                    <label> TANGGAL KEMBALI *</label>
+                    <input type="date" name="tgl" value="<?=$row->tanggal_pinjam?>" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label> KETERANGAN *</label>
-                    <textarea name="ket" class="form-control" required><?=$row->keterangan?></textarea>
+                    <textarea name="ket" class="form-control" required placeholder="tulis keterangan disini"><?php if($page!='kembali'){echo $row->keterangan;}?></textarea>
                   </div>
           				
           				<div class="form-group">

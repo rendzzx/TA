@@ -17,30 +17,34 @@ class pengembalian extends CI_Controller {
 		$this->template->load('template', 'pengembalian/pengembalian_data', $data);
 	}
 
-	public function add()
-	{
-		$pengembalian = new stdClass();
-		$pengembalian->pengembalian_id = null;
-		$pengembalian->no_trans = null;
-		$pengembalian->nik = null;
-		$pengembalian->kd_alat = null;
-		$pengembalian->jumlah = null;
-		$pengembalian->tgl_pinjam = null;
-		$pengembalian->keterangan = null;
-		$data = array(
-			'page' => 'add',
-			'row' => $pengembalian
-		);
-		$this->template->load('template', 'pengembalian/pengembalian_form', $data);
-	}
-
 	public function edit($id)
 	{
+		$combo_karyawan = $this->pengembalian_m->combo_karyawan();
+		$combo_tools = $this->pengembalian_m->combo_tools();
+
 		$query = $this->pengembalian_m->get($id);
 		if($query->num_rows() > 0) {
 			$pengembalian = $query->row();
 			$data = array(
 			'page' => 'edit',
+			'row' => $pengembalian,
+			'combo_kar' => $combo_karyawan,
+			'combo_tools' => $combo_tools,
+		);
+			$this->template->load('template', 'pengembalian/pengembalian_form', $data);
+		} else {
+			echo "<script>alert('Data tidak ditemukan');</script>";
+			echo "<script>window.location='".site_url('pengembalian')."';</script>";
+		}
+	}
+
+	public function kembali($id)
+	{
+		$query = $this->pengembalian_m->get_kembali($id);
+		if($query->num_rows() > 0) {
+			$pengembalian = $query->row();
+			$data = array(
+			'page' => 'kembali',
 			'row' => $pengembalian
 		);
 			$this->template->load('template', 'pengembalian/pengembalian_form', $data);
@@ -54,7 +58,7 @@ class pengembalian extends CI_Controller {
 	public function proses()
 	{
 		$post = $this->input->post(null, TRUE);
-		if(isset($_POST['add'])) {
+		if(isset($_POST['kembali'])) {
 			$this->pengembalian_m->add($post);
 
 		}else if(isset($_POST['edit'])) {

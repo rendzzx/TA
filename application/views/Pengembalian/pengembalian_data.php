@@ -11,14 +11,15 @@
         <div class="box">
           <div class="box-header">
            <!--  <h3 class="box-title"> pengembalian</h3> -->
-            <div class="pull-right">
+            <div class="pull-right"><!-- 
               <a href="<?=site_url('pengembalian/add') ?>" class="btn btn-primary btn-flat">
                 <i class="fa fa-hourglass-end"></i> Pengembalian Tools
-              </a>
+              </a> -->
             </div>
           </div>
 
           <div class="box-body table-responsive">
+            <h1 align="center">Proses</h1>
               <table class="table table-bordered table-striped" id="tableprocess">
                 <thead>
                   <tr>
@@ -58,6 +59,7 @@
           <br><br><br>
 
           <div class="box-body table-responsive">
+            <h1 align="center">Selesai</h1>
               <table class="table table-bordered table-striped" id="table1">
                 <thead>
                   <tr>
@@ -65,7 +67,7 @@
                     <th>NO TRANSAKSI</th>
                     <th>Karyawan</th>
                     <th>ALAT</th>
-                    <th>JUMLAH PINJAM</th>
+                    <th>JUMLAH KEMBALI</th>
                     <th>TANGGAL PINJAM</th>
                     <th>TANGGAL KEMBALI</th>
                     <th>KETERANGAN</th>
