@@ -37,7 +37,7 @@ function makeID($fields="", $table="", $inisial=""){
 		$tmp = "";
 		if ($result->max !='') {
 			$tgl = substr($result->max,3);
-			$tgl = substr($tgl,0,-3);
+			$tgl = substr($tgl,0,-4);
 
 			if($tgl != $datenow){
 				$number = 0;

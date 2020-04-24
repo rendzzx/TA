@@ -44,21 +44,26 @@ class peminjaman_m extends CI_Model {
 
 	public function edit($post)
 	{
-		$params = [
-			'no_trans' => $post['no_trans'],
-			'nik' => $post['nik'],
-			'kd_alat' => $post['kd'],
-			'jumlah' => $post['jml'],
-			'tgl_pinjam' => $post['tgl'],
+		$header = [
+			'karyawan_id' => $post['karyawan'],
+			'tanggal_pinjam' => $post['tgl'],
+		];
+		$detail = [
+			'alat_id' => $post['tools'],
+			'qty' => $post['jml'],
 			'keterangan' => $post['ket'],
 		];
-		$this->db->where('no_trans', $post['id']);
-		$this->db->update('peminjaman', $params);
+		$this->db->where('no_trans', $post['no_trans']);
+		$this->db->update('transaksi_header', $header);
+		$this->db->where('no_trans', $post['no_trans']);
+		$this->db->update('transaksi_detail_peminjaman', $detail);
 	}
 
 	public function del($id)
 	{
 		$this->db->where('no_trans', $id);
-		$this->db->delete('peminjaman');
+		$this->db->delete('transaksi_detail_peminjaman');
+		$this->db->where('no_trans', $id);
+		$this->db->delete('transaksi_header');
 	}
 }
