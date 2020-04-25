@@ -62,7 +62,7 @@
                   </div>
                   <div class="form-group">
                     <label> TANGGAL PINJAM *</label>
-                    <input type="date" name="tgl" value="<?=$row->tanggal_pinjam?>" class="form-control" required>
+                    <input type="date" name="tgl" value="<?php if(!is_null($row->tanggal_pinjam)){echo $row->tanggal_pinjam;}else{echo date("Y-m-d");}?>" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label> KETERANGAN *</label>
