@@ -41,11 +41,11 @@
                   </div>
                   <div class="form-group">
                     <label> JUMLAH ALAT *</label>
-                    <input type="number" name="jml" value="<?=$row->qty?>" class="form-control" required>
+                    <input type="number" name="jml" value="<?=$row->qty?>" class="form-control" readonly>
                   </div>
                   <div class="form-group">
                     <label> TANGGAL KEMBALI *</label>
-                    <input type="date" name="tgl" value="<?=$row->tanggal_pinjam?>" class="form-control" required>
+                    <input type="date" default="now" name="tgl" value="<?= date("Y-m-d");?>" class="form-control" readonly>
                   </div>
                   <div class="form-group">
                     <label> KETERANGAN *</label>
