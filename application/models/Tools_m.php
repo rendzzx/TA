@@ -16,7 +16,6 @@ class Tools_m extends CI_Model {
 	{
 		$params = [
 			'nama' => $post['alat_name'],
-			'kd_alat' => $post['kd'],
 			'harga' => $post['price'],
 			'keterangan' => empty($post['keterangan']) ? null : $post['keterangan'],
 			'tgl_beli' => $post['beli'],
@@ -29,7 +28,6 @@ class Tools_m extends CI_Model {
 	{
 		$params = [
 			'nama' => $post['alat_name'],
-			'kd_alat' => $post['kd'],
 			'harga' => $post['price'],
 			'keterangan' => $post['keterangan'],
 			'tgl_beli' => $post['beli'],

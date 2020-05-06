@@ -53,7 +53,7 @@
                   </div>
           				
           				<div class="form-group">
-          					<button type="submit" name="<?=$page?>" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Simpan</button>
+          					<button type="submit" name="kembali" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Simpan</button>
           					<button type="reset" class="btn btn-flat"><i class="fa fa-reply"></i> Reset</button>
           				</div>
           			</form>

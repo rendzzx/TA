@@ -20,7 +20,6 @@ class Tools extends CI_Controller {
 		$tools = new stdClass();
 		$tools->alat_id = null;
 		$tools->nama = null;
-		$tools->kd_alat = null;
 		$tools->harga = null;
 		$tools->keterangan = null;
 		$tools->tgl_beli = null;

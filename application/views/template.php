@@ -95,7 +95,7 @@
               </li>
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="<?= site_url('users/profile') ?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?=site_url('auth/logout')?>" class="btn btn-danger btn-flat">Log out</a>
@@ -160,6 +160,8 @@
         <li <?=$this->uri->segment(1) == 'peminjaman' ? 'class="active"' : '' ?>><a href="<?=site_url('peminjaman')?>""><i class="fa  fa-hourglass-1"></i> <span> Trans Peminjaman Alat </span></a></li>
 
         <li <?=$this->uri->segment(1) == 'pengembalian' ? 'class="active"' : '' ?>><a href="<?=site_url('pengembalian')?>""><i class="fa  fa-hourglass-end"></i> <span> Trans Pengembalian Alat </span></a></li>
+
+        <li <?=$this->uri->segment(1) == 'history' ? 'class="active"' : '' ?>><a href="<?=site_url('history')?>""><i class="fa  fa-history"></i> <span> Trans History </span></a></li>
         
          <li>
           <a href="#"><i class="fa fa-book"></i> <span> Laporan </span></a>

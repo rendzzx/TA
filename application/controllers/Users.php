@@ -17,6 +17,12 @@ class Users extends CI_Controller {
 		$this->template->load('template', 'users/user_data', $data);
 	}
 
+	public function profile(){
+		$userid = $this->session->userdata('userid');
+		$data['row'] = $this->user->get($userid)->result();
+		$this->template->load('template', 'users/profile', $data);
+	}
+
 	public function add()
 	{
 		// $this->load->library('form_validation');

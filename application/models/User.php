@@ -12,8 +12,7 @@ class user extends CI_Model {
 		return $query;
 	}
 
-	public function get($id = null)
-	{
+	public function get($id = null){
 		$this->db->from('user');
 		if($id != null) {
 			$this->db->where('user_id', $id);

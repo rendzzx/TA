@@ -1,14 +1,15 @@
 <section class="content-header">
       <center> DATA ALAT BENGEL </center>
-<!--       <ol class="breadcrumb">
-        <li><a href="<?=site_url('peminjaman') ?>"><i class="fa fa-user"></i>peminjaman</a></li>
-        <!-- <li class="active">peminjaman</li>
-      </ol>
-    </section> -->
 
     <!-- Main content -->
 <section class="content">
-
+  <?php if ($this->session->flashdata('error')) { ?>
+    <div class="row">
+      <div class="col-12 alert alert-danger" role="alert">
+        <?php echo $this->session->flashdata('error'); ?>
+      </div>
+    </div>
+  <?php } ?>
         <div class="box">
           <div class="box-header">
             <h3 class="box-title"><?=ucfirst($page)?> peminjaman</h3>

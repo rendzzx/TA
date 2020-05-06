@@ -1,11 +1,5 @@
 <section class="content-header">
       <center> DATA ALAT BENGEL </center>
-<!--       <ol class="breadcrumb">
-        <li><a href="<?=site_url('tools') ?>"><i class="fa fa-user"></i>Tools</a></li>
-        <!-- <li class="active">Tools</li>
-      </ol>
-    </section> -->
-
     <!-- Main content -->
 <section class="content">
 
@@ -26,8 +20,7 @@
           				<div class="form-group">
                   <div class="form-group">
                     <label> Kode Alat *</label>
-                    <input type="hidden" name="id" value="<?=$row->alat_id?>">
-                    <input type="text" name="kd" value="<?=$row->kd_alat?>" class="form-control" required>
+                    <input type="text" name="id" value="<?=$row->alat_id?>" class="form-control" readonly>
                   </div>
                     <label> Nama Alat *</label>
                     <input type="text" name="alat_name" value="<?=$row->nama?>" class="form-control" required>
