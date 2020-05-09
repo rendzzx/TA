@@ -1,10 +1,6 @@
 <section class="content-header">
       <center> DATA KARYAWAN </center>
-<!--       <ol class="breadcrumb">
-        <li><a href="<?=site_url('karyawan') ?>"><i class="fa fa-user"></i>karyawan</a></li>
-        <!-- <li class="active">karyawan</li>
-      </ol>
-    </section> -->
+    </section>
 
     <!-- Main content -->
 <section class="content">
@@ -13,6 +9,10 @@
           <div class="box-header">
             <h3 class="box-title"> karyawan</h3>
             <div class="pull-right">
+              <a href="<?=site_url('karyawan/exportexcel') ?>" class="btn btn-success btn-flat">
+                <i class="fa fa-table"></i> Export to excel
+              </a>
+
               <a href="<?=site_url('karyawan/add') ?>" class="btn btn-primary btn-flat">
                 <i class="fa fa-plus"></i> Tambah Data
               </a>
@@ -23,8 +23,6 @@
             </div>
           </div>
           <div class="box-body table-responsive">
-         <!-- <?php print_r($row->result()) ?> -->
-
               <table class="table table-bordered table-striped" id="table1">
                 <thead>
                   <tr>
@@ -47,7 +45,7 @@
                         <td><?=$no++?>.</td>
                         <td><?=$data->nik?></td>
                         <td><?=$data->nama?></td>
-                        <td><?=$data->gender?></td>
+                        <td><?=$data->gender == 'L' ? 'Pria' : 'Wanita' ?></td>
                         <td><?=$data->phone?></td>
                         <td><?=$data->alamat?></td>
                         <td><?=$data->divisi?></td>

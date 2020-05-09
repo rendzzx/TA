@@ -1,10 +1,6 @@
 <section class="content-header">
       <center> DATA ALAT BENGEL </center>
-<!--       <ol class="breadcrumb">
-        <li><a href="<?=site_url('tools') ?>"><i class="fa fa-user"></i>Tools</a></li>
-        <!-- <li class="active">Tools</li>
-      </ol>
-    </section> -->
+    </section>
 
     <!-- Main content -->
 <section class="content">
@@ -13,6 +9,10 @@
           <div class="box-header">
             <h3 class="box-title"> Tools</h3>
             <div class="pull-right">
+              <a href="<?=site_url('tools/exportexcel') ?>" class="btn btn-success btn-flat">
+                <i class="fa fa-table"></i> Export to excel
+              </a>
+
               <a href="<?=site_url('tools/add') ?>" class="btn btn-primary btn-flat">
                 <i class="fa fa-plus"></i> Tambah Data
               </a>

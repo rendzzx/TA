@@ -1,9 +1,5 @@
 <section class="content-header">
      <center> DATA PENGGUNA </center>
-<!--       <ol class="breadcrumb">
-        <li><a href="<?=base_url('Users')?>"><i class="fa fa-user"></i>Users</a></li>
-        <!-- <li class="active">Dashboard</li> -->
-      </ol>
     </section>
 
     <!-- Main content --> 
@@ -13,18 +9,16 @@
           <div class="box-header">
             <h3 class="box-title"> Data Users</h3>
             <div class="pull-right">
+              <a href="<?=site_url('users/exportexcel') ?>" class="btn btn-success btn-flat">
+                <i class="fa fa-table"></i> Export to excle
+              </a>
+
               <a href="<?=site_url('users/add') ?>" class="btn btn-primary btn-flat">
                 <i class="fa fa-user-plus"></i> Tambah Data
               </a>
-              <a href="<?=site_url('users/add') ?>" class="btn btn-warning btn-flat">
-                <i class="fa fa-user-print"></i> Export Data
-              </a>
-
             </div>
           </div>
           <div class="box-body table-responsive">
-         <!-- <?php print_r($row->result()) ?> -->
-
               <table class="table table-bordered table-striped" id="table1">
                 <thead>
                   <tr>

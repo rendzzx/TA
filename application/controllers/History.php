@@ -10,8 +10,7 @@ class History extends CI_Controller {
     $this->load->library('Pdf');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$data['row'] = $this->history_m->get();
 
 		$this->template->load('template', 'history/history_data', $data);
@@ -30,10 +29,15 @@ class History extends CI_Controller {
 		if ($data) {
 			$pdf = new FPDF('P','mm','A4');
 	    $pdf->AddPage();
-	    
-	    // mencetak string 
+
+	     // mencetak string 
 	    $pdf->SetFont('Arial','B',20);
-	    $pdf->Cell(0,20,'LAPORAN PEMINJAMAN TOOLS',0,1,'C');
+	    $pdf->Cell(0,10,'LAPORAN PEMINJAMAN TOOLS',0,1,'C');
+
+	    $pdf->SetFont('Arial','B',15);
+	    $pdf->Cell(0,8,'Auto 2000 Cabang Kelapa Gading',0,1,'C');
+
+	    $pdf->Line(20, 30, 210-20, 30);
 
 	    $pdf->Cell(0,10,'',0,1,'C');
 	    
@@ -69,7 +73,12 @@ class History extends CI_Controller {
 	    
 	    // mencetak string 
 	    $pdf->SetFont('Arial','B',20);
-	    $pdf->Cell(0,20,'LAPORAN PEMINJAMAN TOOLS',0,1,'C');
+	    $pdf->Cell(0,10,'LAPORAN PEMINJAMAN TOOLS',0,1,'C');
+
+	    $pdf->SetFont('Arial','B',15);
+	    $pdf->Cell(0,8,'Auto 2000 Cabang Kelapa Gading',0,1,'C');
+
+	    $pdf->Line(20, 30, 210-20, 30);
 
 	    $pdf->Cell(0,10,'',0,1,'C');
 	    
@@ -95,6 +104,12 @@ class History extends CI_Controller {
 	    }
 	    $pdf->Output("laporan-tools.pdf", "I");
 	  }
+	}
+
+	public function exportexcel(){
+		$data['row'] = $this->history_m->get();
+
+		$this->load->view('history/export_excel', $data);
 	}
 }
 

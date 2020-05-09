@@ -76,6 +76,11 @@ class Tools extends CI_Controller {
 			// echo "<script>window.location='".site_url('tools')."';</script>";
 			redirect('tools');
 	}	
+
+	public function exportexcel(){
+		$data['row'] = $this->tools_m->get();
+		$this->load->view('tools/export_excel', $data);
+	}
 }
 
 

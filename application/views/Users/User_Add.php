@@ -49,7 +49,7 @@
           					<select name="level" class="form-control">
           						<option value="">--Pilih--</option>
           						<option value="1" <?=set_value('level') == 1 ? "selected" : null?>>Admin</option>
-          						<option value="2" <?=set_value('level') == 2 ? "selected" : null?>>Kasir</option>
+          						<option value="2" <?=set_value('level') == 2 ? "selected" : null?>>user</option>
           					</select>
           					<?=form_error('level')?>
           				</div>

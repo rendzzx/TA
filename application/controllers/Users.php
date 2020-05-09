@@ -2,8 +2,7 @@
 
 class Users extends CI_Controller {
 
-	function __construct()
-	{
+	function __construct(){
 		parent::__construct();
 		chek_not_login();
 		check_admin();
@@ -11,8 +10,7 @@ class Users extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$data['row'] = $this->user->get();
 		$this->template->load('template', 'users/user_data', $data);
 	}
@@ -23,10 +21,7 @@ class Users extends CI_Controller {
 		$this->template->load('template', 'users/profile', $data);
 	}
 
-	public function add()
-	{
-		// $this->load->library('form_validation');
-
+	public function add(){
 		$this->form_validation->set_rules('fullname', 'Nama', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|is_unique[user.username]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
@@ -54,8 +49,7 @@ class Users extends CI_Controller {
 		}	
 	}
 
-		public function edit($id)
-	{
+	public function edit($id){
 
 		$this->form_validation->set_rules('fullname', 'Nama', 'required');
 		$this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|callback_username_check');
@@ -99,8 +93,7 @@ class Users extends CI_Controller {
 		}	
 	}
 
-	function username_check()
-	{
+	function username_check(){
 		$post = $this->input->post(null, TRUE);
 		$query = $this->db->query("SELECT * FROM user WHERE username = '$post[username]' AND user_id != '$post[user_id]'");
 		if($query->num_rows() > 0 ){
@@ -109,11 +102,9 @@ class Users extends CI_Controller {
 		} else {
 			return TRUE;
 		}
-		
 	}
 
-	public function del()
-	{
+	public function del(){
 		$id = $this->input->post('user_id');
 		$this->user->del($id);
 
@@ -123,5 +114,9 @@ class Users extends CI_Controller {
 			echo "<script>window.location='".site_url('users')."';</script>";
 	}
 
+	public function exportexcel(){
+		$data['row'] = $this->user->get();
+		$this->load->view('users/export_excel', $data);
+	}
 }
 

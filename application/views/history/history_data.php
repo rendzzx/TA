@@ -1,6 +1,5 @@
 <section class="content-header">
-      <center> DATA PENGEMBALIAN </center>
-
+  <center> DATA PENGEMBALIAN </center>
     <!-- Main content -->
 <section class="content">
   <?php $this->view('messages') ?>
@@ -8,6 +7,10 @@
           <div class="box-header">
             <h3 class="box-title">History Transaksi</h3>
             <div class="pull-right">
+              <a href="<?=site_url('history/exportexcel') ?>" class="btn btn-success btn-flat">
+                <i class="fa fa-table"></i> Export to excel
+              </a>
+              &nbsp;
               <a href="<?=site_url('history/printall') ?>" class="btn btn-primary btn-flat">
                 <i class="fa fa-print"></i> Print All
               </a>

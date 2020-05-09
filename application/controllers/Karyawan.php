@@ -76,6 +76,11 @@ class karyawan extends CI_Controller {
 			// echo "<script>window.location='".site_url('karyawan')."';</script>";
 			redirect('karyawan');
 	}
+
+	public function exportexcel(){
+		$data['row'] = $this->karyawan_m->get();
+		$this->load->view('karyawan/export_excel', $data);
+	}
 }
 
 
