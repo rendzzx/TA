@@ -73,8 +73,8 @@
 					<div class="card-body">
 						<h5 class="card-title text-center"> Laporan </h5>
 						<p class="text-center"><i class="fa fa-book fa-3x"></i></p>
-						<div class="display-4 text-center"> 100 </div>
-						<p class="text-center"><a href="#" class="btn btn-primary">Lihat Detial</a></p>
+						<div class="display-4 text-center"> &nbsp; </div>
+						<p class="text-center"><a href="<?= site_url('history') ?>" class="btn btn-primary">Lihat Detial</a></p>
 					</div>
 				</div>
 			</div>

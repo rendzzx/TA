@@ -2,8 +2,7 @@
 
 class karyawan extends CI_Controller {
 
-		function __construct()
-	{
+	function __construct(){
 		parent::__construct();
 		chek_not_login();
 		$this->load->model('karyawan_m');

@@ -1,12 +1,8 @@
 <section class="content-header">
       <center> DATA PENGGUNA </center>
-<!--       <ol class="breadcrumb">
-        <li><a href="<?=base_url('Users')?>"><i class="fa fa-user"></i>Users</a></li>
-        <!-- <li class="active">Dashboard</li> -->
-      </ol>
-    </section>
+</section>
 
-    <!-- Main content -->
+  <!-- Main content -->
 <section class="content">
 
         <div class="box">

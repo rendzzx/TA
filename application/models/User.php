@@ -25,7 +25,7 @@ class user extends CI_Model {
 	{
 		$params['nama'] = $post['fullname'];
 		$params['username'] = $post['username'];
-		$params['password'] = md5($post['fullname']);
+		$params['password'] = md5($post['password']);
 		$params['alamat'] = $post['alamat'] !== "" ? $post['alamat'] : null;
 		$params['level'] = $post['level'];
 		$this->db->insert('user', $params);

@@ -6,11 +6,14 @@
   <?php $this->view('messages') ?>
         <div class="box">
           <div class="box-header">
+            <h3 class="box-title">History Transaksi</h3>
             <div class="pull-right">
+              <a href="<?=site_url('history/printall') ?>" class="btn btn-primary btn-flat">
+                <i class="fa fa-print"></i> Print All
+              </a>
             </div>
           </div>
           <div class="box-body table-responsive">
-            <h1 align="center">Selesai</h1>
               <table class="table table-bordered table-striped" id="table1">
                 <thead>
                   <tr>
@@ -39,8 +42,11 @@
                         <td><?=$data->tanggal_kembali?></td>
                         <td><?=$data->keterangan?></td>
                         <td class="text-center" width="160px">
-                          <a href="<?=site_url('pengembalian/del/'.$data->no_trans)?>" onclick="return confirm('Apakah Anda yakin?')"class="btn btn-danger btn-xs">
+                          <a href="<?=site_url('history/del/'.$data->no_trans)?>" onclick="return confirm('Apakah Anda yakin hapus semua data?')"class="btn btn-danger btn-xs">
                               <i class="fa fa-trash"></i> Hapus
+                          </a>
+                          <a href="<?=site_url('history/printone/'.$data->no_trans)?>" target="_blank" class="btn btn-primary btn-xs">
+                              <i class="fa fa-print"></i> Print
                           </a>
                         </td>
                     </tr>

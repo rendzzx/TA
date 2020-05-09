@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2020 at 08:01 PM
+-- Generation Time: May 09, 2020 at 05:21 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -85,13 +85,6 @@ CREATE TABLE `transaksi_detail_peminjaman` (
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `transaksi_detail_peminjaman`
---
-
-INSERT INTO `transaksi_detail_peminjaman` (`no_trans`, `alat_id`, `qty`, `keterangan`) VALUES
-('TRS2005060001', 14, 10, '10');
-
 -- --------------------------------------------------------
 
 --
@@ -105,13 +98,6 @@ CREATE TABLE `transaksi_detail_pengembalian` (
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `transaksi_detail_pengembalian`
---
-
-INSERT INTO `transaksi_detail_pengembalian` (`no_trans`, `alat_id`, `qty`, `keterangan`) VALUES
-('TRS2005060001', 14, 10, 'asaas');
-
 -- --------------------------------------------------------
 
 --
@@ -124,13 +110,6 @@ CREATE TABLE `transaksi_header` (
   `tanggal_pinjam` date NOT NULL,
   `tanggal_kembali` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaksi_header`
---
-
-INSERT INTO `transaksi_header` (`no_trans`, `karyawan_id`, `tanggal_pinjam`, `tanggal_kembali`) VALUES
-('TRS2005060001', 1, '2020-05-06', '2020-05-06');
 
 -- --------------------------------------------------------
 
@@ -147,13 +126,6 @@ CREATE TABLE `transaksi_history` (
   `qty` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaksi_history`
---
-
-INSERT INTO `transaksi_history` (`no_trans`, `karyawan_id`, `tanggal_pinjam`, `tanggal_kembali`, `alat_id`, `qty`, `keterangan`) VALUES
-('TRS2005060001', 1, '2020-05-06', '2020-05-06', 14, 10, 'asaas');
 
 -- --------------------------------------------------------
 
@@ -175,10 +147,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `nama`, `alamat`, `level`) VALUES
-(2, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'dimas', 'jakarta', '1'),
-(3, 'kasir', 'c7911af3adbd12a035b289556d96470a', 'putra', 'bandung', '2'),
-(7, 'kasir1', 'b4444ced6e6a1ee124539716e0435c22', 'wadad', 'Jayapura', '2'),
-(8, 'xyz1234', '25044ec3c5ea662d56ebce767ac505ba', 'Wahyudi', 'Purwodadi Utara', '1');
+(2, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'dimas', 'jakarta', '1');
 
 -- --------------------------------------------------------
 
@@ -325,7 +294,7 @@ ALTER TABLE `tools`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- Constraints for dumped tables
 --

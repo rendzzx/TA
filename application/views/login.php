@@ -49,7 +49,7 @@
       </div>
       <div class="row">
         <div class="col-xs-8">
-          <a href="#" class="btn btn-md btn-flat"><b>Register</b></a>
+          <a href="<?= base_url('Auth/register') ?>" class="btn btn-md btn-flat"><b>Register</b></a>
         </div>
         <div class="col-xs-4">
           <button type="submit" name="login" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in"></i> Sign In</button>

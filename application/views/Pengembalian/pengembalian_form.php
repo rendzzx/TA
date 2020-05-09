@@ -49,7 +49,7 @@
                   </div>
                   <div class="form-group">
                     <label> KETERANGAN *</label>
-                    <textarea name="ket" class="form-control" required placeholder="tulis keterangan disini"><?php if($page!='kembali'){echo $row->keterangan;}?></textarea>
+                    <textarea name="ket" class="form-control" autofocus required placeholder="tulis keterangan disini"><?php if($page!='kembali'){echo $row->keterangan;}?></textarea>
                   </div>
           				
           				<div class="form-group">

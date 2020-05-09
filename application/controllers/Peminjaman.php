@@ -2,15 +2,13 @@
 
 class peminjaman extends CI_Controller {
 
-		function __construct()
-	{
+	function __construct(){
 		parent::__construct();
 		chek_not_login();
 		$this->load->model('peminjaman_m');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$data['row'] = $this->peminjaman_m->get();
 		$this->template->load('template', 'peminjaman/peminjaman_data', $data);
 	}
@@ -96,10 +94,10 @@ class peminjaman extends CI_Controller {
 		$kembali_stok = $this->peminjaman_m->kembalikan_stok($alat_id, $qty);
 		
 		$this->peminjaman_m->del($id);
-			if($this->db->affected_rows() > 0) {
-				$this->session->set_flashdata('success', 'Data Berhasil Dihapus');
-			}
-			redirect('peminjaman');
+		if($this->db->affected_rows() > 0) {
+			$this->session->set_flashdata('success', 'Data Berhasil Dihapus');
+		}
+		redirect('peminjaman');
 	}	
 }
 

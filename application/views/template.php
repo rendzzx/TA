@@ -161,16 +161,17 @@
 
         <li <?=$this->uri->segment(1) == 'pengembalian' ? 'class="active"' : '' ?>><a href="<?=site_url('pengembalian')?>""><i class="fa  fa-hourglass-end"></i> <span> Trans Pengembalian Alat </span></a></li>
 
-        <li <?=$this->uri->segment(1) == 'history' ? 'class="active"' : '' ?>><a href="<?=site_url('history')?>""><i class="fa  fa-history"></i> <span> Trans History </span></a></li>
-        
-         <li>
-          <a href="#"><i class="fa fa-book"></i> <span> Laporan </span></a>
-        </li>
+        <?php if($this->fungsi->user_login()->level == 1) { ?>
+          <li <?=$this->uri->segment(1) == 'history' ? 'class="active"' : '' ?>>
+            <a href="<?=site_url('history')?>""><i class="fa  fa-history"></i> <span> Trans History </span></a>
+          </li>
+        <?php } ?>
     
         <?php if($this->fungsi->user_login()->level == 1) { ?>
         <li class="header">SETTING</li>
           <li <?=$this->uri->segment(1) == 'Users' ? 'class="active"' : '' ?>>
-            <a href="<?=site_url('Users')?>"><i class="fa fa-users"></i> <span> Users </span></a></li>
+            <a href="<?=site_url('Users')?>"><i class="fa fa-users"></i> <span> Users </span></a>
+          </li>
         <?php } ?>
       </ul>
     </section>
