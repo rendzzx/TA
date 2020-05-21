@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2020 at 05:21 PM
+-- Generation Time: May 21, 2020 at 09:31 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -44,10 +44,7 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`karyawan_id`, `nik`, `nama`, `gender`, `phone`, `alamat`, `divisi`, `status`) VALUES
-(1, 'N012', 'Wati', 'P', '0909', 'jakarta', 'mekanik', 'Karyawan'),
-(3, 'N02', 'Ayu', 'P', '787879', 'Bekasi', 'Office Support', 'Kontral'),
-(4, 'N03', 'Yuda', 'L', '909878', 'Cipayung', 'Adm', 'Kontrak'),
-(5, 'N045', 'naura', 'P', '1234578910', 'bungur', 'Adm', 'Karyawan');
+(1, '46157890', 'dimas', 'L', '02121212121', 'jakarta', 'mekanik', 'karyawan');
 
 -- --------------------------------------------------------
 
@@ -69,8 +66,9 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`alat_id`, `nama`, `harga`, `keterangan`, `tgl_beli`, `stok`) VALUES
-(14, 'Obeng', 20000, 'Beli', '2020-05-06', 120),
-(15, 'Konci 10', 10000, 'beli', '2020-05-06', 100);
+(1, 'Obeng', 31000, 'beli', '2020-05-09', 100),
+(2, 'tang', 100000, 'aksdbas', '2020-05-10', 100),
+(3, 'kunci 10', 10039, 'asdnkjs', '2020-05-12', 100);
 
 -- --------------------------------------------------------
 
@@ -85,6 +83,15 @@ CREATE TABLE `transaksi_detail_peminjaman` (
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Triggers `transaksi_detail_peminjaman`
+--
+DELIMITER $$
+CREATE TRIGGER `pinjam` AFTER INSERT ON `transaksi_detail_peminjaman` FOR EACH ROW UPDATE tools SET tools.stok = tools.stok - new.qty
+WHERE alat_id = new.alat_id
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +105,15 @@ CREATE TABLE `transaksi_detail_pengembalian` (
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Triggers `transaksi_detail_pengembalian`
+--
+DELIMITER $$
+CREATE TRIGGER `kembali` AFTER INSERT ON `transaksi_detail_pengembalian` FOR EACH ROW UPDATE tools SET tools.stok = tools.stok + new.qty
+WHERE alat_id = new.alat_id
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -108,7 +124,9 @@ CREATE TABLE `transaksi_header` (
   `no_trans` varchar(30) NOT NULL,
   `karyawan_id` int(11) NOT NULL,
   `tanggal_pinjam` date NOT NULL,
-  `tanggal_kembali` date NOT NULL
+  `tanggal_kembali` date NOT NULL,
+  `foto_pinjam` varchar(255) NOT NULL,
+  `foto_kembali` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -124,7 +142,9 @@ CREATE TABLE `transaksi_history` (
   `tanggal_kembali` date NOT NULL,
   `alat_id` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `keterangan` varchar(255) NOT NULL
+  `keterangan` varchar(255) NOT NULL,
+  `foto_pinjam` varchar(255) NOT NULL,
+  `foto_kembali` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -165,6 +185,8 @@ CREATE TABLE `v_transaksi_kembali` (
 ,`nama_tools` varchar(100)
 ,`qty` int(11)
 ,`keterangan` varchar(255)
+,`foto_pinjam` varchar(255)
+,`foto_kembali` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -182,6 +204,7 @@ CREATE TABLE `v_transaksi_pinjam` (
 ,`nama_tools` varchar(100)
 ,`qty` int(11)
 ,`keterangan` varchar(255)
+,`foto_pinjam` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -208,7 +231,7 @@ CREATE TABLE `v_transaksi_process` (
 --
 DROP TABLE IF EXISTS `v_transaksi_kembali`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_transaksi_kembali`  AS  select `transaksi_history`.`no_trans` AS `no_trans`,`transaksi_history`.`karyawan_id` AS `karyawan_id`,`karyawan`.`nama` AS `nama_karyawan`,`transaksi_history`.`tanggal_pinjam` AS `tanggal_pinjam`,`transaksi_history`.`tanggal_kembali` AS `tanggal_kembali`,`transaksi_history`.`alat_id` AS `alat_id`,`tools`.`nama` AS `nama_tools`,`transaksi_history`.`qty` AS `qty`,`transaksi_history`.`keterangan` AS `keterangan` from ((`transaksi_history` join `karyawan` on((`transaksi_history`.`karyawan_id` = `karyawan`.`karyawan_id`))) join `tools` on((`transaksi_history`.`alat_id` = `tools`.`alat_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_transaksi_kembali`  AS  select `transaksi_history`.`no_trans` AS `no_trans`,`transaksi_history`.`karyawan_id` AS `karyawan_id`,`karyawan`.`nama` AS `nama_karyawan`,`transaksi_history`.`tanggal_pinjam` AS `tanggal_pinjam`,`transaksi_history`.`tanggal_kembali` AS `tanggal_kembali`,`transaksi_history`.`alat_id` AS `alat_id`,`tools`.`nama` AS `nama_tools`,`transaksi_history`.`qty` AS `qty`,`transaksi_history`.`keterangan` AS `keterangan`,`transaksi_history`.`foto_pinjam` AS `foto_pinjam`,`transaksi_history`.`foto_kembali` AS `foto_kembali` from ((`transaksi_history` join `karyawan` on((`transaksi_history`.`karyawan_id` = `karyawan`.`karyawan_id`))) join `tools` on((`transaksi_history`.`alat_id` = `tools`.`alat_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -217,7 +240,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_transaksi_pinjam`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_transaksi_pinjam`  AS  select `transaksi_header`.`no_trans` AS `no_trans`,`transaksi_header`.`karyawan_id` AS `karyawan_id`,`karyawan`.`nama` AS `nama_karyawan`,`transaksi_header`.`tanggal_pinjam` AS `tanggal_pinjam`,`transaksi_detail_peminjaman`.`alat_id` AS `alat_id`,`tools`.`nama` AS `nama_tools`,`transaksi_detail_peminjaman`.`qty` AS `qty`,`transaksi_detail_peminjaman`.`keterangan` AS `keterangan` from (((`transaksi_header` join `transaksi_detail_peminjaman` on((`transaksi_header`.`no_trans` = `transaksi_detail_peminjaman`.`no_trans`))) join `karyawan` on((`transaksi_header`.`karyawan_id` = `karyawan`.`karyawan_id`))) join `tools` on((`transaksi_detail_peminjaman`.`alat_id` = `tools`.`alat_id`))) where (not(`transaksi_header`.`no_trans` in (select `transaksi_history`.`no_trans` from `transaksi_history`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_transaksi_pinjam`  AS  select `transaksi_header`.`no_trans` AS `no_trans`,`transaksi_header`.`karyawan_id` AS `karyawan_id`,`karyawan`.`nama` AS `nama_karyawan`,`transaksi_header`.`tanggal_pinjam` AS `tanggal_pinjam`,`transaksi_detail_peminjaman`.`alat_id` AS `alat_id`,`tools`.`nama` AS `nama_tools`,`transaksi_detail_peminjaman`.`qty` AS `qty`,`transaksi_detail_peminjaman`.`keterangan` AS `keterangan`,`transaksi_header`.`foto_pinjam` AS `foto_pinjam` from (((`transaksi_header` join `transaksi_detail_peminjaman` on((`transaksi_header`.`no_trans` = `transaksi_detail_peminjaman`.`no_trans`))) join `karyawan` on((`transaksi_header`.`karyawan_id` = `karyawan`.`karyawan_id`))) join `tools` on((`transaksi_detail_peminjaman`.`alat_id` = `tools`.`alat_id`))) where (not(`transaksi_header`.`no_trans` in (select `transaksi_history`.`no_trans` from `transaksi_history`))) ;
 
 -- --------------------------------------------------------
 
@@ -237,11 +260,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 ALTER TABLE `karyawan`
   ADD PRIMARY KEY (`karyawan_id`),
-  ADD UNIQUE KEY `nik` (`nik`),
-  ADD KEY `nik_2` (`nik`),
-  ADD KEY `nik_3` (`nik`),
-  ADD KEY `nik_4` (`nik`),
-  ADD KEY `nik_5` (`nik`);
+  ADD UNIQUE KEY `nik` (`nik`);
 
 --
 -- Indexes for table `tools`
@@ -284,17 +303,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `karyawan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `karyawan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `alat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `alat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --

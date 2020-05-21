@@ -50,6 +50,7 @@
             <th>TANGGAL PINJAM</th>
             <th>TANGGAL KEMBALI</th>
             <th>KETERANGAN</th>
+            <th colspan="2">Foto</th>
             <th><center>AKSI</center></th>
           </tr>
         </thead>
@@ -65,6 +66,16 @@
               <td><?=$data->tanggal_pinjam?></td>
               <td><?=$data->tanggal_kembali?></td>
               <td><?=$data->keterangan?></td>
+              <td>
+                <a href="<?= base_url().$data->foto_pinjam ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="click to zoom">
+                  <img src="<?= base_url().$data->foto_pinjam ?>" alt="foto pinjam" style="height: 60px; width: auto;">
+                </a>
+              </td>
+              <td>
+                <a href="<?= base_url().$data->foto_kembali ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="click to zoom">
+                  <img src="<?= base_url().$data->foto_kembali ?>" alt="foto pinjam" style="height: 60px; width: auto;">
+                </a>
+              </td>
               <td class="text-center" width="160px">
                 <a href="<?=site_url('history/printone/'.$data->no_trans)?>" target="_blank" class="btn btn-primary btn-xs">
                     <i class="fa fa-print"></i> Print
@@ -80,6 +91,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
   $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
+
     var tol = "<?= $_GET['tools']; ?>";
     if (tol != null || tol != '' || tol !== undefined) {
       $('#tools').val(tol).trigger('change');
