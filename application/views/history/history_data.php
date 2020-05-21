@@ -93,25 +93,26 @@
   $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 
-    var tol = "<?= $_GET['tools']; ?>";
+    var tol = "<?= isset($_GET['tools']) ? $_GET['tools'] : ''; ?>";
     if (tol != null || tol != '' || tol !== undefined) {
       $('#tools').val(tol).trigger('change');
     }
 
-    var kar = "<?= $_GET['karyawan']; ?>";
+    var kar = "<?= isset($_GET['karyawan']) ? $_GET['karyawan'] : ''; ?>";
     if (kar != null || kar != '' || tol !== undefined) {
       $('#karyawan').val(kar).trigger('change');
     }
 
-    var xkar = $('#karyawan').val();
-    var xtol = $('#tools').val();
-
     $('#xexcel').click(function() {
+      var xkar = $('#karyawan').val();
+      var xtol = $('#tools').val();
       var go = "<?= base_url('History/exportexcel'); ?>"+"?karyawan="+xkar+"&tools="+xtol;
       document.location.href = go;
     })
 
     $('#xpdf').click(function() {
+      var xkar = $('#karyawan').val();
+      var xtol = $('#tools').val();
       var go = "<?= base_url('History/printall'); ?>"+"?karyawan="+xkar+"&tools="+xtol;
       document.location.href = go;
     })

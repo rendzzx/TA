@@ -3,10 +3,10 @@
 class history_m extends CI_Model {
 	public function get($kar = null, $tools= null){
 		$this->db->from('v_transaksi_kembali');
-		if($kar != null) {
+		if($kar != null || $kar != "") {
 			$this->db->where('karyawan_id', $kar);
 		}
-		if($tools != null) {
+		if($tools != null || $tools != "") {
 			$this->db->where('alat_id', $tools);
 		}
 		$query = $this->db->get();
