@@ -81,22 +81,40 @@ class peminjaman extends CI_Controller {
 			}
 		}
 
-		if(isset($_POST['add'])) {
-			$this->peminjaman_m->add($post);
+		$maxsize    = 5242880; //4MB
+	    $acceptable = array(
+	        'image/jpeg',
+	        'image/jpg',
+	        'image/png'
+	    );
+
+	    if ( (!in_array($_FILES['foto']['type'], $acceptable)) && (!empty($_FILES["foto"]["type"])) ) {
+	    	$this->session->set_flashdata('error', 'Jenis file tidak di terima');
+			redirect('peminjaman/add');
+	    }
+		else if (($_FILES['foto']['size'] >= $maxsize) || ($_FILES["foto"]["size"] == 0)) {
+			$this->session->set_flashdata('error', 'Foto terlalu besar ukuran maksimal adalah 5MB');
+			redirect('peminjaman/add');
 		}
-		else if(isset($_POST['edit'])) {
-			//kembalikan stok 
-			$query = $this->peminjaman_m->get($id)->result();
-			foreach ($query as $val) {
-				$kembali_stok = $this->peminjaman_m->kembalikan_stok($val->alat_id, $val->qty);
+		else{
+			if(isset($_POST['add'])) {
+				$this->peminjaman_m->add($post);
 			}
-			$this->peminjaman_m->edit($post);
+			else if(isset($_POST['edit'])) {
+				//kembalikan stok 
+				$query = $this->peminjaman_m->get($id)->result();
+				foreach ($query as $val) {
+					$kembali_stok = $this->peminjaman_m->kembalikan_stok($val->alat_id, $val->qty);
+				}
+				$this->peminjaman_m->edit($post);
+			}
+
+			if($this->db->affected_rows() > 0) {
+				$this->session->set_flashdata('success', 'Data Berhasil Disimpan');
+			}
+			redirect('peminjaman');
 		}
 
-		if($this->db->affected_rows() > 0) {
-			$this->session->set_flashdata('success', 'Data Berhasil Disimpan');
-		}
-		redirect('peminjaman');
 	}
 }
 
