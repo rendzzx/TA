@@ -37,7 +37,7 @@
             <div class="form-group">
               <label> Karyawan *</label>
               <br>
-              <select name="karyawan" class="form-control">
+              <select name="karyawan" id="karyawan" class="form-control">
                 <?php if (is_null($row->karyawan_id)) { ?>
                   <option value="">pilih Karyawan</option>
                 <?php }else{ ?>
@@ -68,6 +68,15 @@
             </div>
 
             <br>
+
+            <div class="form-group">
+              <label>Foto</label>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" accept="image/*" class="custom-file-input" name="foto" id="foto">
+                </div>
+              </div>
+            </div>
 
             <div class="form-group">
               <label> KETERANGAN *</label>
@@ -110,6 +119,7 @@
                       <button type="button" 
                       data-id="<?php echo $row->alat_id; ?>"
                       data-nama="<?php echo $row->nama; ?>" 
+                      data-stok="<?php echo $row->stok; ?>" 
                       class="btnSelectProduk btn btn-primary btn-sm">select</button>
                   </td>
                   <td><?php echo $row->alat_id; ?></td>
@@ -134,6 +144,7 @@
   var listItem =[];
 
 $(document).ready(function() {
+  loaddata();
     $('#tablealat').DataTable();
 
     $.fn.showItem = function(){
@@ -142,20 +153,22 @@ $(document).ready(function() {
         for(i=0; i<listItem.length; i++){
           row +='<tr>';
           row +='<td>'+no+'</td>';
-          row +='<td> <input type="text" readonly="true" name="alat_id[]" value="'+listItem[i][0]+'">';
-          row +='<td>'+listItem[i][1]+'</td>';          
+          row +='<td> <input type="hidden" readonly="true" name="tools[]" value="'+listItem[i][0]+'">'+listItem[i][0];
+          row +='<td>'+listItem[i][1]+'</td>';
           row +='<td> <input type="number" name="jml[]" min="1" value="1">';
           row +='</tr>';
           no++;
         }
       $('#tbalat').html(row);
+      // console.log(listItem);
     }
 
     $('.btnSelectProduk').click(function(){
         var id = $(this).data('id');
         var nama = $(this).data('nama');
+        var stok = $(this).data('stok');
 
-        var item = [id,nama];
+        var item = [id,nama,stok];
         listItem.push(item);
         $(this).showItem();
         $('#modalselecttolls').modal('toggle');
@@ -187,4 +200,27 @@ $(document).ready(function() {
         });
     });
 });
+
+function loaddata() {
+  var isedit = "<?= $this->uri->segment(2) ?>";
+  if (isedit == 'edit') {
+    $('#karyawan').attr('readonly','true');
+    var alat_id = <?= json_encode($alat_id);?>;
+    var nama_tools = <?= json_encode($nama_tools);?>;
+    var qty = <?= json_encode($qty);?>;
+
+    var row  ='';
+    var no =1;
+      for(i=0; i<alat_id.length; i++){
+        row +='<tr>';
+        row +='<td>'+no+'</td>';
+        row +='<td> <input type="hidden" readonly="true" name="tools[]" value="'+alat_id[i]+'">'+alat_id[i];
+        row +='<td>'+nama_tools[i]+'</td>';
+        row +='<td> <input type="number" name="jml[]" min="1" value="'+qty[i]+'">';
+        row +='</tr>';
+        no++;
+      }
+    $('#tbalat').html(row);
+  }
+}
 </script>

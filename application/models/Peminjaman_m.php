@@ -52,29 +52,24 @@ class peminjaman_m extends CI_Model {
 	public function add($post)
 	{
 		$id = makeID('no_trans','transaksi_header','TRS');
+
 		$header = [
 			'no_trans' => $id,
 			'karyawan_id' => $post['karyawan'],
 			'tanggal_pinjam' => $post['tgl'],
 		];
-		$detail = [
-			'no_trans' => $id,
-			'alat_id' => $post['tools'],
-			'qty' => $post['jml'],
-			'keterangan' => $post['ket'],
-		];
 		$this->db->insert('transaksi_header', $header);
-		$this->db->insert('transaksi_detail_peminjaman', $detail);
 
-		$this->db->from('tools');
-		$this->db->where('alat_id', $post['tools']);
-		$stok = $this->db->get()->result();
-		$ambil = (int)$stok[0]->stok - $post['jml'];
-		$dataupdate = [
-			'stok' => $ambil
-		];
-		$this->db->where('alat_id', $post['tools']);
-		$this->db->update('tools', $dataupdate);
+		$detail = array();
+		for ($i = 0; $i < count($post['tools']); $i++) {
+			$detail = array(
+				'no_trans' 		=> $id,
+				'alat_id' 		=> $post['tools'][$i],
+				'qty' 			=> $post['jml'][$i],
+				'keterangan' 	=> $post['ket'],
+			);
+			$this->db->insert('transaksi_detail_peminjaman', $detail);
+		}
 	}
 
 	public function edit($post)

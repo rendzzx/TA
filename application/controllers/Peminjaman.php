@@ -42,6 +42,13 @@ class peminjaman extends CI_Controller {
 		$query = $this->peminjaman_m->get($id);
 		if($query->num_rows() > 0) {
 			$peminjaman = $query->row();
+			$pinjam = $query->result();
+
+			foreach ($pinjam as $val) {
+				$alat_id[] = $val->alat_id;
+				$nama_tools[] = $val->nama_tools;
+				$qty[] = $val->qty;
+			}
 
 			$combo_karyawan = $this->peminjaman_m->combo_karyawan();
 			$combo_tools = $this->peminjaman_m->combo_tools();
@@ -49,8 +56,11 @@ class peminjaman extends CI_Controller {
 			$data = array(
 				'page' => 'edit',
 				'row' => $peminjaman,
+				'alat_id' => $alat_id,
+				'nama_tools' => $nama_tools,
+				'qty' => $qty,
 				'combo_kar' => $combo_karyawan,
-				'combo_tools' => $combo_tools,
+				'tools' => $combo_tools,
 			);
 			$this->template->load('template', 'peminjaman/peminjaman_form', $data);
 		} else {
@@ -65,28 +75,30 @@ class peminjaman extends CI_Controller {
 		$alat_id = $this->input->post('tools');
 		$qty = $this->input->post('jml');
 
-		if ($this->peminjaman_m->cek_stok($alat_id,$qty)) {
-			if(isset($_POST['add'])) {
-				$this->peminjaman_m->add($post);
-
-			}else if(isset($_POST['edit'])) {
-				//kembalikan stok 
-				$query = $this->peminjaman_m->get($id)->result();
-				$alat_id = $query[0]->alat_id;
-				$qty = $query[0]->qty;
-				$kembali_stok = $this->peminjaman_m->kembalikan_stok($alat_id, $qty);
-				$this->peminjaman_m->edit($post);
+		for ($i = 0; $i < count($alat_id); $i++) {
+			$cek = $this->peminjaman_m->cek_stok($alat_id[$i], $qty[$i]);
+			if (!$cek) {
+				$this->session->set_flashdata('error', 'Stok alat dengan id '.$alat_id[$i].' tidak cukup');
+				redirect('peminjaman/add');
 			}
+		}
 
-			if($this->db->affected_rows() > 0) {
-				$this->session->set_flashdata('success', 'Data Berhasil Disimpan');
-			}
-			redirect('peminjaman');
+		if(isset($_POST['add'])) {
+			$this->peminjaman_m->add($post);
 		}
-		else{
-			$this->session->set_flashdata('error', 'Stok tidak cukup');
-			redirect('peminjaman/add');
+		else if(isset($_POST['edit'])) {
+			//kembalikan stok 
+			$query = $this->peminjaman_m->get($id)->result();
+			$alat_id = $query[0]->alat_id;
+			$qty = $query[0]->qty;
+			$kembali_stok = $this->peminjaman_m->kembalikan_stok($alat_id, $qty);
+			$this->peminjaman_m->edit($post);
 		}
+
+		if($this->db->affected_rows() > 0) {
+			$this->session->set_flashdata('success', 'Data Berhasil Disimpan');
+		}
+		redirect('peminjaman');
 	}
 
 	public function del($id){
