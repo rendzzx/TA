@@ -18,8 +18,23 @@ class pengembalian_m extends CI_Model {
 	public function kembali($post){
 		$no_trans = $post['no_trans'];
 
+		$updir = "./file/$no_trans";
+
+		$extension = pathinfo($_FILES['foto']['name']);
+		$extension = $extension['extension'];
+
+		$upfile = $updir ."/kembali.".$extension;
+
+        if (move_uploaded_file($_FILES['foto']['tmp_name'], $upfile)) {
+        	echo "File is valid, and was successfully uploaded.\n";
+	    }
+	    else {
+	        echo "Upload failed";die;
+	    }
+
 		$dataheader = array(
-			'tanggal_kembali' => $post['tgl'],
+			'tanggal_kembali' 	=> $post['tgl'],
+			'foto_kembali'		=> $upfile
 		);
 		$this->db->where('no_trans', $no_trans);
 		$this->db->update('transaksi_header', $dataheader);
@@ -47,7 +62,9 @@ class pengembalian_m extends CI_Model {
 				'tanggal_kembali' 	=> $post['tgl'],
 				'alat_id' 			=> $val->alat_id,
 				'qty' 				=> $val->qty,
-				'keterangan' 		=> $post['ket']
+				'keterangan' 		=> $post['ket'],
+				'foto_pinjam'		=> $val->foto_pinjam,
+				'foto_kembali'		=> $upfile
 			);
 			$this->db->insert('transaksi_history', $data);
 		}

@@ -1,0 +1,36 @@
+CREATE VIEW v_transaksi_kembali AS
+SELECT 
+    transaksi_history.no_trans,
+    transaksi_history.karyawan_id,
+    karyawan.nama AS nama_karyawan,
+    transaksi_history.tanggal_pinjam,
+    transaksi_history.tanggal_kembali,
+    transaksi_history.alat_id,
+    tools.nama AS nama_tools,
+    transaksi_history.qty,
+    transaksi_history.keterangan,
+    transaksi_history.foto_pinjam,
+    transaksi_history.foto_kembali
+FROM transaksi_history
+INNER JOIN karyawan ON transaksi_history.karyawan_id = karyawan.karyawan_id
+INNER JOIN tools ON transaksi_history.alat_id = tools.alat_id
+
+CREATE VIEW v_transaksi_pinjam AS
+SELECT
+    transaksi_header.no_trans,
+    transaksi_header.karyawan_id,
+    karyawan.nama AS nama_karyawan,
+    transaksi_header.tanggal_pinjam,
+    transaksi_detail_peminjaman.alat_id,
+    tools.nama AS nama_tools,
+    transaksi_detail_peminjaman.qty,
+    transaksi_detail_peminjaman.keterangan,
+    transaksi_header.foto_pinjam
+FROM transaksi_header
+INNER JOIN transaksi_detail_peminjaman ON transaksi_header.no_trans = transaksi_detail_peminjaman.no_trans
+INNER JOIN karyawan ON transaksi_header.karyawan_id = karyawan.karyawan_id
+INNER JOIN tools ON transaksi_detail_peminjaman.alat_id = tools.alat_id
+WHERE transaksi_header.no_trans NOT IN (
+	SELECT no_trans FROM transaksi_history
+)
+

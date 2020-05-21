@@ -22,7 +22,7 @@
     <div class="box-body">
     	<div class="row">
     		<div class="col-md-10 col-md-offset-1">
-    			<form action="<?=site_url('pengembalian/proses')?>" method="post">
+    			<form action="<?=site_url('pengembalian/proses')?>" method="post" enctype="multipart/form-data">
     				<div class="form-group">
               <label> NO TRANSAKSI *</label>
               <input type="text" name="no_trans" value="<?=$row->no_trans?>" class="form-control" readonly>
@@ -52,6 +52,24 @@
             </div>
 
             <br>
+
+            <div class="form-group">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col col-md-6">
+                    <label>Foto</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" accept="image/*" class="custom-file-input" name="foto" id="foto" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col col-md-6">
+                    <img src="<?= base_url().$row->foto_pinjam ?>" alt="foto pinjam" style="height: 200px; width: auto;">
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div class="form-group">
               <label> TANGGAL KEMBALI *</label>

@@ -73,7 +73,7 @@
               <label>Foto</label>
               <div class="input-group">
                 <div class="custom-file">
-                  <input type="file" accept="image/*" class="custom-file-input" name="foto" id="foto">
+                  <input type="file" accept="image/*" class="custom-file-input" name="foto" id="foto" required>
                 </div>
               </div>
             </div>
