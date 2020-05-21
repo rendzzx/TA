@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2020 at 09:31 PM
+-- Generation Time: May 21, 2020 at 10:35 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -44,7 +44,11 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`karyawan_id`, `nik`, `nama`, `gender`, `phone`, `alamat`, `divisi`, `status`) VALUES
-(1, '46157890', 'dimas', 'L', '02121212121', 'jakarta', 'mekanik', 'karyawan');
+(1, '00001', 'dimas', 'L', '02100001', 'jakarta', 'admin', 'karyawan'),
+(2, '00002', 'ayu', 'P', '02100002', 'jakarta', 'admin', 'karyawan'),
+(3, '00003', 'jaka', 'L', '02100003', 'jakarta', 'mekanik', 'kontrak'),
+(4, '00004', 'naufal', 'L', '02100004', 'jakarta', 'mekanik', 'kontrak'),
+(5, '00005', 'asep', 'L', '02100005', 'jakarta', 'mekanik', 'kontrak');
 
 -- --------------------------------------------------------
 
@@ -66,9 +70,16 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`alat_id`, `nama`, `harga`, `keterangan`, `tgl_beli`, `stok`) VALUES
-(1, 'Obeng', 31000, 'beli', '2020-05-09', 100),
-(2, 'tang', 100000, 'aksdbas', '2020-05-10', 100),
-(3, 'kunci 10', 10039, 'asdnkjs', '2020-05-12', 100);
+(1, 'alat1', 10000, 'alat1', '2020-01-01', 100),
+(2, 'alat2', 10000, 'alat2', '2020-01-01', 100),
+(3, 'alat3', 10000, 'alat3', '2020-01-01', 100),
+(4, 'alat4', 10000, 'alat4', '2020-01-01', 100),
+(5, 'alat5', 10000, 'alat5', '2020-01-01', 100),
+(6, 'alat6', 10000, 'alat6', '2020-01-01', 100),
+(7, 'alat7', 10000, 'alat7', '2020-01-01', 100),
+(8, 'alat8', 10000, 'alat8', '2020-01-01', 100),
+(9, 'alat9', 10000, 'alat9', '2020-01-01', 100),
+(10, 'alat10', 10000, 'alat10', '2020-01-01', 100);
 
 -- --------------------------------------------------------
 
@@ -82,6 +93,21 @@ CREATE TABLE `transaksi_detail_peminjaman` (
   `qty` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi_detail_peminjaman`
+--
+
+INSERT INTO `transaksi_detail_peminjaman` (`no_trans`, `alat_id`, `qty`, `keterangan`) VALUES
+('TRS2005210001', 2, 1, 'pinjam1'),
+('TRS2005210001', 6, 2, 'pinjam1'),
+('TRS2005210001', 9, 1, 'pinjam1'),
+('TRS2005210002', 1, 1, 'pinjam2'),
+('TRS2005210002', 4, 1, 'pinjam2'),
+('TRS2005210002', 10, 1, 'pinjam2'),
+('TRS2005210003', 1, 1, 'pinjam3'),
+('TRS2005210003', 2, 1, 'pinjam3'),
+('TRS2005210004', 3, 1, 'sadsadsadasl');
 
 --
 -- Triggers `transaksi_detail_peminjaman`
@@ -104,6 +130,21 @@ CREATE TABLE `transaksi_detail_pengembalian` (
   `qty` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi_detail_pengembalian`
+--
+
+INSERT INTO `transaksi_detail_pengembalian` (`no_trans`, `alat_id`, `qty`, `keterangan`) VALUES
+('TRS2005210001', 2, 1, 'kembali1'),
+('TRS2005210001', 6, 2, 'kembali1'),
+('TRS2005210001', 9, 1, 'kembali1'),
+('TRS2005210002', 1, 1, 'kembali2'),
+('TRS2005210002', 4, 1, 'kembali2'),
+('TRS2005210002', 10, 1, 'kembali2'),
+('TRS2005210003', 1, 1, 'kembali3'),
+('TRS2005210003', 2, 1, 'kembali3'),
+('TRS2005210004', 3, 1, 'asdsadasdsadsaf');
 
 --
 -- Triggers `transaksi_detail_pengembalian`
@@ -129,6 +170,16 @@ CREATE TABLE `transaksi_header` (
   `foto_kembali` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `transaksi_header`
+--
+
+INSERT INTO `transaksi_header` (`no_trans`, `karyawan_id`, `tanggal_pinjam`, `tanggal_kembali`, `foto_pinjam`, `foto_kembali`) VALUES
+('TRS2005210001', 2, '2020-05-21', '2020-05-21', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
+('TRS2005210002', 3, '2020-05-21', '2020-05-21', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
+('TRS2005210003', 1, '2020-05-21', '2020-05-21', './file/TRS2005210003/pinjam.jpg', './file/TRS2005210003/kembali.png'),
+('TRS2005210004', 1, '2020-05-21', '2020-05-21', './file/TRS2005210004/pinjam.jpg', './file/TRS2005210004/kembali.png');
+
 -- --------------------------------------------------------
 
 --
@@ -146,6 +197,21 @@ CREATE TABLE `transaksi_history` (
   `foto_pinjam` varchar(255) NOT NULL,
   `foto_kembali` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaksi_history`
+--
+
+INSERT INTO `transaksi_history` (`no_trans`, `karyawan_id`, `tanggal_pinjam`, `tanggal_kembali`, `alat_id`, `qty`, `keterangan`, `foto_pinjam`, `foto_kembali`) VALUES
+('TRS2005210001', 2, '2020-05-21', '2020-05-21', 2, 1, 'kembali1', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
+('TRS2005210001', 2, '2020-05-21', '2020-05-21', 6, 2, 'kembali1', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
+('TRS2005210001', 2, '2020-05-21', '2020-05-21', 9, 1, 'kembali1', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
+('TRS2005210002', 3, '2020-05-21', '2020-05-21', 1, 1, 'kembali2', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
+('TRS2005210002', 3, '2020-05-21', '2020-05-21', 4, 1, 'kembali2', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
+('TRS2005210002', 3, '2020-05-21', '2020-05-21', 10, 1, 'kembali2', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
+('TRS2005210003', 1, '2020-05-21', '2020-05-21', 1, 1, 'kembali3', './file/TRS2005210003/pinjam.jpg', './file/TRS2005210003/kembali.png'),
+('TRS2005210003', 1, '2020-05-21', '2020-05-21', 2, 1, 'kembali3', './file/TRS2005210003/pinjam.jpg', './file/TRS2005210003/kembali.png'),
+('TRS2005210004', 1, '2020-05-21', '2020-05-21', 3, 1, 'asdsadasdsadsaf', './file/TRS2005210004/pinjam.jpg', './file/TRS2005210004/kembali.png');
 
 -- --------------------------------------------------------
 
@@ -303,12 +369,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `karyawan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `karyawan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tools`
 --
 ALTER TABLE `tools`
-  MODIFY `alat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `alat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `user`
 --
