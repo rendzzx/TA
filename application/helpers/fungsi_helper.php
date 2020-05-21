@@ -49,7 +49,7 @@ function makeID($fields="", $table="", $inisial=""){
 
 		$number++;
 		$number = strval($number);
-		for ($i=0; $i <=($imax-strlen($inisial)-strlen($number)) ; $i++) { 
+		for ($i=0; $i <= ($imax - strlen($inisial) - strlen($number)) ; $i++) { 
 			$tmp = $tmp."0";
 		}
 		

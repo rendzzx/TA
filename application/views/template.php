@@ -143,27 +143,29 @@
           <a href="<?=site_url('dashboard')?>"><i class="fa fa-dashboard"></i> <span> Dashboard </span></a>
         </li>
 
-        <li class="treeview <?=$this->uri->segment(1) == 'tools' || $this->uri->segment(1) == 'karyawan' ? 'active' : ''?>">
-          <a href="#">
-            <i class="fa fa-folder-o"></i>
-            <span> Data Master</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li <?=$this->uri->segment(1) == 'tools' ? 'class="active"' : '' ?>><a href="<?=site_url('tools')?>"><i class="fa fa-wrench"></i> Data Alat </a></li>
-            <li <?=$this->uri->segment(1) == 'karyawan' ? 'class="active"' : '' ?>><a href="<?=site_url('karyawan')?>"><i class="fa fa-user"></i> Data Karyawan </a></li>
-          </ul>
-        </li>
+        <?php if($this->fungsi->user_login()->level == 1) { ?>
+          <li class="treeview <?=$this->uri->segment(1) == 'tools' || $this->uri->segment(1) == 'karyawan' ? 'active' : ''?>">
+            <a href="#">
+              <i class="fa fa-folder-o"></i>
+              <span> Data Master</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li <?=$this->uri->segment(1) == 'tools' ? 'class="active"' : '' ?>><a href="<?=site_url('tools')?>"><i class="fa fa-wrench"></i> Data Alat </a></li>
+              <li <?=$this->uri->segment(1) == 'karyawan' ? 'class="active"' : '' ?>><a href="<?=site_url('karyawan')?>"><i class="fa fa-user"></i> Data Karyawan </a></li>
+            </ul>
+          </li>
+        <?php } ?>
 
-        <li <?=$this->uri->segment(1) == 'peminjaman' ? 'class="active"' : '' ?>><a href="<?=site_url('peminjaman')?>""><i class="fa  fa-hourglass-1"></i> <span> Trans Peminjaman Alat </span></a></li>
+        <li <?=$this->uri->segment(1) == 'peminjaman' ? 'class="active"' : '' ?>><a href="<?=site_url('peminjaman')?>"><i class="fa  fa-hourglass-1"></i> <span> Trans Peminjaman Alat </span></a></li>
 
-        <li <?=$this->uri->segment(1) == 'pengembalian' ? 'class="active"' : '' ?>><a href="<?=site_url('pengembalian')?>""><i class="fa  fa-hourglass-end"></i> <span> Trans Pengembalian Alat </span></a></li>
+        <li <?=$this->uri->segment(1) == 'pengembalian' ? 'class="active"' : '' ?>><a href="<?=site_url('pengembalian')?>"><i class="fa  fa-hourglass-end"></i> <span> Trans Pengembalian Alat </span></a></li>
 
         <?php if($this->fungsi->user_login()->level == 1) { ?>
           <li <?=$this->uri->segment(1) == 'history' ? 'class="active"' : '' ?>>
-            <a href="<?=site_url('history')?>""><i class="fa  fa-history"></i> <span> Trans History </span></a>
+            <a href="<?=site_url('history')?>"><i class="fa  fa-history"></i> <span> Trans History </span></a>
           </li>
         <?php } ?>
     

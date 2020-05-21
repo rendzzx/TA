@@ -11,7 +11,17 @@ class History extends CI_Controller {
 	}
 
 	public function index(){
-		$data['row'] = $this->history_m->get();
+		$data['karyawan'] = $this->history_m->get_kar();
+		$data['tools'] = $this->history_m->get_tools();
+
+		if ($_POST) {
+			$kar = $this->input->post('karyawan');
+			$tools = $this->input->post('tools');
+			$data['row'] = $this->history_m->get($kar, $tools);
+		}
+		else{
+			$data['row'] = $this->history_m->get();
+		}
 
 		$this->template->load('template', 'history/history_data', $data);
 	}

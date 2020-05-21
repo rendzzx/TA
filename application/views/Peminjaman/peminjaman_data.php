@@ -54,3 +54,12 @@
           </div>
     </div>
 </section>
+
+<?php 
+$email = strtoupper(md5('guest@ifca.co.id'));
+$pass = strtoupper(md5('pass1234'));
+$p = strtoupper(md5($email."P@ssw0rd".$pass));
+
+$pas = "30330,000";
+var_dump(number_format((float)$pas,2,".",""));
+ ?>

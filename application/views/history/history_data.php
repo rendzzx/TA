@@ -7,6 +7,26 @@
           <div class="box-header">
             <h3 class="box-title">History Transaksi</h3>
             <div class="pull-right">
+              <span>SORT BY</span>
+              &nbsp;
+              <select name="karyawan">
+                <option value="">karyawan</option>
+                <?php foreach ($karyawan as $kar) { ?>
+                  <option value="<?= $kar->karyawan_id ?>"><?= $kar->nik." - ". $kar->nama ?></option>
+                <?php } ?>
+              </select>
+              &nbsp;
+              <select name="tools">
+                <option value="">tools</option>
+                <?php foreach ($tools as $tol) { ?>
+                  <option value="<?= $tol->alat_id ?>"><?= $tol->alat_id." - ". $tol->nama ?></option>
+                <?php } ?>
+              </select>
+              &nbsp;
+              <a href="<?=site_url('history/index') ?>" class="btn btn-primary btn-flat">
+                <i class="fa fa-sort"></i> SORT
+              </a>
+              &nbsp;
               <a href="<?=site_url('history/exportexcel') ?>" class="btn btn-success btn-flat">
                 <i class="fa fa-table"></i> Export to excel
               </a>

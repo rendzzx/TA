@@ -4,12 +4,14 @@ class peminjaman extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		chek_not_login();
+		// chek_not_login();
 		$this->load->model('peminjaman_m');
 	}
 
 	public function index(){
 		$data['row'] = $this->peminjaman_m->get();
+		$data['tools'] = $this->peminjaman_m->combo_tools();
+
 		$this->template->load('template', 'peminjaman/peminjaman_data', $data);
 	}
 
@@ -30,7 +32,7 @@ class peminjaman extends CI_Controller {
 			'page' => 'add',
 			'row' => $peminjaman,
 			'combo_kar' => $combo_karyawan,
-			'combo_tools' => $combo_tools,
+			'tools' => $combo_tools,
 		);
 		$this->template->load('template', 'peminjaman/peminjaman_form', $data);
 	}
@@ -99,6 +101,38 @@ class peminjaman extends CI_Controller {
 		}
 		redirect('peminjaman');
 	}	
+
+	public function test()
+	{
+		$callback = array(
+			'Data' => null,
+			'Error' => false,
+			'Message' => null
+		);
+
+		$Data = file_get_contents("php://input");
+        // $Data = simplexml_load_string($Data);
+        $Data = json_decode($Data);
+        
+        $hd = array(
+        	'jashdbs'=>'ashdas',
+        	'asdjasa'=>'asljda'
+        );
+        $dt = array();
+        for ($i = 0; $i < 10; $i++) {
+        	$dt[] = array(
+        		'dtasda'=>'askdas',
+        		'askjda'=>'asdass'
+        	);
+        }
+
+        $callback = array(
+        	'header' => $hd,
+        	'detail' => $dt
+        );
+
+		echo json_encode($Data->detail[0]->askjda);
+	}
 }
 
 
