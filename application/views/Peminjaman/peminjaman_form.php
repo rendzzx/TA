@@ -1,7 +1,7 @@
 <section class="content-header">
-      <center> DATA ALAT BENGEL </center>
+  <center> DATA ALAT BENGEL </center>
+</section>
 
-    <!-- Main content -->
 <section class="content">
   <?php if ($this->session->flashdata('error')) { ?>
     <div class="row">
@@ -37,7 +37,7 @@
             <div class="form-group">
               <label> Karyawan *</label>
               <br>
-              <select name="karyawan" id="karyawan" class="form-control">
+              <select name="karyawan" id="karyawan" class="form-control" required>
                 <?php if (is_null($row->karyawan_id)) { ?>
                   <option value="">pilih Karyawan</option>
                 <?php }else{ ?>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="form-group">
-              <button type="button" class="btn btn-primary btn-flat" style="width: 100%;" data-toggle="modal" data-target="#modalselecttolls">ADD TOOLS</button>
+              <button type="button" id="addtools"  class="btn btn-primary btn-flat" style="width: 100%;" data-toggle="modal" data-target="#modalselecttolls">ADD TOOLS</button>
             </div>
 
             <div class="form-group">
@@ -69,7 +69,7 @@
 
             <br>
 
-            <div class="form-group">
+            <div class="form-group" id="upfoto">
               <label>Foto</label>
               <div class="input-group">
                 <div class="custom-file">
@@ -173,41 +173,16 @@ $(document).ready(function() {
         $(this).showItem();
         $('#modalselecttolls').modal('toggle');
     });
-
-    $('#btnProses').click(function(){
-        $.ajax({
-          url:'<?php echo site_url("pesanan/submit"); ?>',
-          data:$('#form_pesanan').serialize(),
-          type:'POST',
-          dataType:'json',
-          beforeSend:function(){
-            $('#btnProses').prop('disabled', true);
-            $('#loading').html('Loading....');
-          },
-          success:function(res){
-            $('#btnProses').prop('disabled', false);
-            $('#loading').html('');
-
-            $('#idPelanggan').val('');
-            $('#namaPelanggan').val('');
-            $('input[name=tglPesan]').val('');
-            $('textarea[name=keterangan]').val('');
-            alert(res.messages);
-
-            listItem=[];
-            $(this).showItem();
-          }
-        });
-    });
 });
 
 function loaddata() {
-  var isedit = "<?= $this->uri->segment(2) ?>";
-  if (isedit == 'edit') {
+  <?php if ($this->uri->segment(2) == 'edit') { ?>
     $('#karyawan').attr('readonly','true');
-    var alat_id = <?= json_encode($alat_id);?>;
-    var nama_tools = <?= json_encode($nama_tools);?>;
-    var qty = <?= json_encode($qty);?>;
+    $('#addtools').hide();
+    $('#upfoto').hide();
+    var alat_id     = <?= isset($alat_id) ? json_encode($alat_id) : ' ' ;?>;
+    var nama_tools  = <?= isset($nama_tools) ? json_encode($nama_tools) : ' ' ;?>;
+    var qty         = <?= isset($qty) ? json_encode($qty) : ' ' ;?>;
 
     var row  ='';
     var no =1;
@@ -221,6 +196,6 @@ function loaddata() {
         no++;
       }
     $('#tbalat').html(row);
-  }
+  <?php } ?>
 }
 </script>

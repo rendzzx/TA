@@ -41,10 +41,6 @@
                           <a href="<?=site_url('peminjaman/edit/'.$data->no_trans)?>" class="btn btn-primary btn-xs">
                               <i class="fa fa-edit"></i> Edit
                           </a>
-                          <a href="<?=site_url('peminjaman/del/'.$data->no_trans)?>" onclick="return confirm('Apakah Anda yakin?')"class="btn btn-danger btn-xs">
-                              <i class="fa fa-trash"></i> Hapus
-                          </a>
-
                         </td>
                     </tr>
                     <?php
@@ -54,12 +50,3 @@
           </div>
     </div>
 </section>
-
-<?php 
-$email = strtoupper(md5('guest@ifca.co.id'));
-$pass = strtoupper(md5('pass1234'));
-$p = strtoupper(md5($email."P@ssw0rd".$pass));
-
-$pas = "30330,000";
-var_dump(number_format((float)$pas,2,".",""));
- ?>

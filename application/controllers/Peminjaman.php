@@ -15,8 +15,7 @@ class peminjaman extends CI_Controller {
 		$this->template->load('template', 'peminjaman/peminjaman_data', $data);
 	}
 
-	public function add()
-	{
+	public function add(){
 		$peminjaman = new stdClass();
 		$peminjaman->no_trans = null;
 		$peminjaman->karyawan_id = null;
@@ -37,8 +36,7 @@ class peminjaman extends CI_Controller {
 		$this->template->load('template', 'peminjaman/peminjaman_form', $data);
 	}
 
-	public function edit($id)
-	{
+	public function edit($id){
 		$query = $this->peminjaman_m->get($id);
 		if($query->num_rows() > 0) {
 			$peminjaman = $query->row();
@@ -71,7 +69,7 @@ class peminjaman extends CI_Controller {
 
 	public function proses(){
 		$post = $this->input->post(null, TRUE);
-
+		$id = $this->input->post('no_trans');
 		$alat_id = $this->input->post('tools');
 		$qty = $this->input->post('jml');
 
@@ -89,9 +87,9 @@ class peminjaman extends CI_Controller {
 		else if(isset($_POST['edit'])) {
 			//kembalikan stok 
 			$query = $this->peminjaman_m->get($id)->result();
-			$alat_id = $query[0]->alat_id;
-			$qty = $query[0]->qty;
-			$kembali_stok = $this->peminjaman_m->kembalikan_stok($alat_id, $qty);
+			foreach ($query as $val) {
+				$kembali_stok = $this->peminjaman_m->kembalikan_stok($val->alat_id, $val->qty);
+			}
 			$this->peminjaman_m->edit($post);
 		}
 
@@ -99,51 +97,6 @@ class peminjaman extends CI_Controller {
 			$this->session->set_flashdata('success', 'Data Berhasil Disimpan');
 		}
 		redirect('peminjaman');
-	}
-
-	public function del($id){
-		$query = $this->peminjaman_m->get($id)->result();
-		$alat_id = $query[0]->alat_id;
-		$qty = $query[0]->qty;
-		$kembali_stok = $this->peminjaman_m->kembalikan_stok($alat_id, $qty);
-		
-		$this->peminjaman_m->del($id);
-		if($this->db->affected_rows() > 0) {
-			$this->session->set_flashdata('success', 'Data Berhasil Dihapus');
-		}
-		redirect('peminjaman');
-	}	
-
-	public function test()
-	{
-		$callback = array(
-			'Data' => null,
-			'Error' => false,
-			'Message' => null
-		);
-
-		$Data = file_get_contents("php://input");
-        // $Data = simplexml_load_string($Data);
-        $Data = json_decode($Data);
-        
-        $hd = array(
-        	'jashdbs'=>'ashdas',
-        	'asdjasa'=>'asljda'
-        );
-        $dt = array();
-        for ($i = 0; $i < 10; $i++) {
-        	$dt[] = array(
-        		'dtasda'=>'askdas',
-        		'askjda'=>'asdass'
-        	);
-        }
-
-        $callback = array(
-        	'header' => $hd,
-        	'detail' => $dt
-        );
-
-		echo json_encode($Data->detail[0]->askjda);
 	}
 }
 

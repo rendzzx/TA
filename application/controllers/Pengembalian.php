@@ -2,17 +2,14 @@
 
 class pengembalian extends CI_Controller {
 
-		function __construct()
-	{
+	function __construct(){
 		parent::__construct();
 		chek_not_login();
 		$this->load->model('pengembalian_m');
 	}
 
-	public function index()
-	{
+	public function index(){
 		$data['process'] = $this->pengembalian_m->get_process();
-
 		$this->template->load('template', 'pengembalian/pengembalian_data', $data);
 	}
 
@@ -20,9 +17,20 @@ class pengembalian extends CI_Controller {
 		$query = $this->pengembalian_m->get_kembali($id);
 		if($query->num_rows() > 0) {
 			$pengembalian = $query->row();
+			$kembali = $query->result();
+
+			foreach ($kembali as $val) {
+				$alat_id[] = $val->alat_id;
+				$nama_tools[] = $val->nama_tools;
+				$qty[] = $val->qty;
+			}
+
 			$data = array(
 			'page' => 'kembali',
-			'row' => $pengembalian
+			'row' => $pengembalian,
+			'alat_id' => $alat_id,
+			'nama_tools' => $nama_tools,
+			'qty' => $qty
 		);
 			$this->template->load('template', 'pengembalian/pengembalian_form', $data);
 		} else {
