@@ -7,7 +7,7 @@ class History extends CI_Controller {
 		chek_not_login();
 		check_admin();
 		$this->load->model('history_m');
-    $this->load->library('Pdf');
+	    $this->load->library('Pdf');
 	}
 
 	public function index(){

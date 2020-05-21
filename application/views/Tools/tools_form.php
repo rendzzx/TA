@@ -23,7 +23,7 @@
                     <input type="text" name="id" value="<?=$row->alat_id?>" class="form-control" readonly>
                   </div>
                     <label> Nama Alat *</label>
-                    <input type="text" name="alat_name" value="<?=$row->nama?>" class="form-control" required>
+                    <input type="text" name="alat_name" value="<?=$row->nama?>" class="form-control" required autofocus>
                   </div>
                   <div class="form-group">
                     <label> Harga *</label>

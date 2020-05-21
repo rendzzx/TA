@@ -103,7 +103,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <table id="produkTable" class="display" style="width:100%">
+          <table id="tblselectalat" class="display" style="width:100%">
           <thead>
               <tr>
                   <th>ACTION</th>          
@@ -120,7 +120,7 @@
                       data-id="<?php echo $row->alat_id; ?>"
                       data-nama="<?php echo $row->nama; ?>" 
                       data-stok="<?php echo $row->stok; ?>" 
-                      class="btnSelectProduk btn btn-primary btn-sm">select</button>
+                      class="btnSelectProduk btn btn-primary" style="width: 80%; margin-top: 1px; margin-bottom: 1px;">select</button>
                   </td>
                   <td><?php echo $row->alat_id; ?></td>
                   <td><?php echo $row->nama; ?></td>
@@ -146,6 +146,7 @@
 $(document).ready(function() {
   loaddata();
     $('#tablealat').DataTable();
+    $('#tblselectalat').DataTable();
 
     $.fn.showItem = function(){
       var row  ='';
@@ -179,7 +180,7 @@ function loaddata() {
   <?php if ($this->uri->segment(2) == 'edit') { ?>
     $('#karyawan').attr('readonly','true');
     $('#addtools').hide();
-    $('#upfoto').hide();
+    $('#upfoto').remove();
     var alat_id     = <?= isset($alat_id) ? json_encode($alat_id) : ' ' ;?>;
     var nama_tools  = <?= isset($nama_tools) ? json_encode($nama_tools) : ' ' ;?>;
     var qty         = <?= isset($qty) ? json_encode($qty) : ' ' ;?>;
