@@ -23,7 +23,7 @@
     <div class="box-body">
     	<div class="row">
     		<div class="col-md-10 col-md-offset-1">
-    			<form action="<?=site_url('peminjaman/proses')?>" method="post">
+    			<form action="<?=site_url('peminjaman/proses')?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label> NO TRANSAKSI *</label>
               <input type="text" name="no_trans" value="<?=$row->no_trans?>" class="form-control" readonly placeholder="No trans will be adedd automatically">
