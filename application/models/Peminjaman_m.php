@@ -48,26 +48,9 @@ class peminjaman_m extends CI_Model {
 		$this->db->update('tools', $dataupdate);
 	}
 
-	public function add($post){
+	public function add($post, $upfile){
 		$id = makeID('no_trans','transaksi_header','TRS');
-		$updir = "./file/$id";
-
-		$extension = pathinfo($_FILES['foto']['name']);
-		$extension = $extension['extension'];
-
-		$upfile = $updir ."/pinjam.".$extension;
-
-		if(!is_dir("$updir")){
-        	mkdir("$updir", 0777, true);
-        }
-
-        if (move_uploaded_file($_FILES['foto']['tmp_name'], $upfile)) {
-        	echo "File is valid, and was successfully uploaded.\n";
-	    }
-	    else {
-	        echo "Upload failed";
-	    }
-
+		
 		$header = [
 			'no_trans' 			=> $id,
 			'karyawan_id' 		=> $post['karyawan'],

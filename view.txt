@@ -9,8 +9,7 @@ SELECT
     tools.nama AS nama_tools,
     transaksi_history.qty,
     transaksi_history.keterangan,
-    transaksi_history.foto_pinjam,
-    transaksi_history.foto_kembali
+    transaksi_history.foto_pinjam
 FROM transaksi_history
 INNER JOIN karyawan ON transaksi_history.karyawan_id = karyawan.karyawan_id
 INNER JOIN tools ON transaksi_history.alat_id = tools.alat_id

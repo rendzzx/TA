@@ -54,20 +54,8 @@
             <br>
 
             <div class="form-group">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col col-md-6">
-                    <label>Foto</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" accept="image/*" class="custom-file-input" name="foto" id="foto" required>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col col-md-6">
-                    <img src="<?= base_url().$row->foto_pinjam ?>" alt="foto pinjam" style="height: 200px; width: auto;">
-                  </div>
-                </div>
+              <div class="col col-md-6">
+                <img src="<?= base_url().$row->foto_pinjam ?>" alt="foto pinjam" style="height: 200px; width: auto;">
               </div>
             </div>
 
@@ -93,6 +81,8 @@
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="<?= base_url('assets/webcam/webcam.min.js'); ?>"></script>
+
 <script type="text/javascript">
   $(document).ready(function() {
     loaddata();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2020 at 10:35 PM
+-- Generation Time: May 23, 2020 at 09:46 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -70,13 +70,13 @@ CREATE TABLE `tools` (
 --
 
 INSERT INTO `tools` (`alat_id`, `nama`, `harga`, `keterangan`, `tgl_beli`, `stok`) VALUES
-(1, 'alat1', 10000, 'alat1', '2020-01-01', 100),
-(2, 'alat2', 10000, 'alat2', '2020-01-01', 100),
+(1, 'alat1', 10000, 'alat1', '2020-01-01', 87),
+(2, 'alat2', 10000, 'alat2', '2020-01-01', 97),
 (3, 'alat3', 10000, 'alat3', '2020-01-01', 100),
-(4, 'alat4', 10000, 'alat4', '2020-01-01', 100),
+(4, 'alat4', 10000, 'alat4', '2020-01-01', 98),
 (5, 'alat5', 10000, 'alat5', '2020-01-01', 100),
 (6, 'alat6', 10000, 'alat6', '2020-01-01', 100),
-(7, 'alat7', 10000, 'alat7', '2020-01-01', 100),
+(7, 'alat7', 10000, 'alat7', '2020-01-01', 97),
 (8, 'alat8', 10000, 'alat8', '2020-01-01', 100),
 (9, 'alat9', 10000, 'alat9', '2020-01-01', 100),
 (10, 'alat10', 10000, 'alat10', '2020-01-01', 100);
@@ -93,21 +93,6 @@ CREATE TABLE `transaksi_detail_peminjaman` (
   `qty` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaksi_detail_peminjaman`
---
-
-INSERT INTO `transaksi_detail_peminjaman` (`no_trans`, `alat_id`, `qty`, `keterangan`) VALUES
-('TRS2005210001', 2, 1, 'pinjam1'),
-('TRS2005210001', 6, 2, 'pinjam1'),
-('TRS2005210001', 9, 1, 'pinjam1'),
-('TRS2005210002', 1, 1, 'pinjam2'),
-('TRS2005210002', 4, 1, 'pinjam2'),
-('TRS2005210002', 10, 1, 'pinjam2'),
-('TRS2005210003', 1, 1, 'pinjam3'),
-('TRS2005210003', 2, 1, 'pinjam3'),
-('TRS2005210004', 3, 1, 'sadsadsadasl');
 
 --
 -- Triggers `transaksi_detail_peminjaman`
@@ -132,21 +117,6 @@ CREATE TABLE `transaksi_detail_pengembalian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `transaksi_detail_pengembalian`
---
-
-INSERT INTO `transaksi_detail_pengembalian` (`no_trans`, `alat_id`, `qty`, `keterangan`) VALUES
-('TRS2005210001', 2, 1, 'kembali1'),
-('TRS2005210001', 6, 2, 'kembali1'),
-('TRS2005210001', 9, 1, 'kembali1'),
-('TRS2005210002', 1, 1, 'kembali2'),
-('TRS2005210002', 4, 1, 'kembali2'),
-('TRS2005210002', 10, 1, 'kembali2'),
-('TRS2005210003', 1, 1, 'kembali3'),
-('TRS2005210003', 2, 1, 'kembali3'),
-('TRS2005210004', 3, 1, 'asdsadasdsadsaf');
-
---
 -- Triggers `transaksi_detail_pengembalian`
 --
 DELIMITER $$
@@ -166,19 +136,8 @@ CREATE TABLE `transaksi_header` (
   `karyawan_id` int(11) NOT NULL,
   `tanggal_pinjam` date NOT NULL,
   `tanggal_kembali` date NOT NULL,
-  `foto_pinjam` varchar(255) NOT NULL,
-  `foto_kembali` varchar(255) NOT NULL
+  `foto_pinjam` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaksi_header`
---
-
-INSERT INTO `transaksi_header` (`no_trans`, `karyawan_id`, `tanggal_pinjam`, `tanggal_kembali`, `foto_pinjam`, `foto_kembali`) VALUES
-('TRS2005210001', 2, '2020-05-21', '2020-05-21', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
-('TRS2005210002', 3, '2020-05-21', '2020-05-21', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
-('TRS2005210003', 1, '2020-05-21', '2020-05-21', './file/TRS2005210003/pinjam.jpg', './file/TRS2005210003/kembali.png'),
-('TRS2005210004', 1, '2020-05-21', '2020-05-21', './file/TRS2005210004/pinjam.jpg', './file/TRS2005210004/kembali.png');
 
 -- --------------------------------------------------------
 
@@ -194,24 +153,8 @@ CREATE TABLE `transaksi_history` (
   `alat_id` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
-  `foto_pinjam` varchar(255) NOT NULL,
-  `foto_kembali` varchar(255) NOT NULL
+  `foto_pinjam` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaksi_history`
---
-
-INSERT INTO `transaksi_history` (`no_trans`, `karyawan_id`, `tanggal_pinjam`, `tanggal_kembali`, `alat_id`, `qty`, `keterangan`, `foto_pinjam`, `foto_kembali`) VALUES
-('TRS2005210001', 2, '2020-05-21', '2020-05-21', 2, 1, 'kembali1', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
-('TRS2005210001', 2, '2020-05-21', '2020-05-21', 6, 2, 'kembali1', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
-('TRS2005210001', 2, '2020-05-21', '2020-05-21', 9, 1, 'kembali1', './file/TRS2005210001/pinjam.png', './file/TRS2005210001/kembali.jpg'),
-('TRS2005210002', 3, '2020-05-21', '2020-05-21', 1, 1, 'kembali2', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
-('TRS2005210002', 3, '2020-05-21', '2020-05-21', 4, 1, 'kembali2', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
-('TRS2005210002', 3, '2020-05-21', '2020-05-21', 10, 1, 'kembali2', './file/TRS2005210002/pinjam.png', './file/TRS2005210002/kembali.jpg'),
-('TRS2005210003', 1, '2020-05-21', '2020-05-21', 1, 1, 'kembali3', './file/TRS2005210003/pinjam.jpg', './file/TRS2005210003/kembali.png'),
-('TRS2005210003', 1, '2020-05-21', '2020-05-21', 2, 1, 'kembali3', './file/TRS2005210003/pinjam.jpg', './file/TRS2005210003/kembali.png'),
-('TRS2005210004', 1, '2020-05-21', '2020-05-21', 3, 1, 'asdsadasdsadsaf', './file/TRS2005210004/pinjam.jpg', './file/TRS2005210004/kembali.png');
 
 -- --------------------------------------------------------
 
@@ -252,7 +195,6 @@ CREATE TABLE `v_transaksi_kembali` (
 ,`qty` int(11)
 ,`keterangan` varchar(255)
 ,`foto_pinjam` varchar(255)
-,`foto_kembali` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -297,7 +239,7 @@ CREATE TABLE `v_transaksi_process` (
 --
 DROP TABLE IF EXISTS `v_transaksi_kembali`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_transaksi_kembali`  AS  select `transaksi_history`.`no_trans` AS `no_trans`,`transaksi_history`.`karyawan_id` AS `karyawan_id`,`karyawan`.`nama` AS `nama_karyawan`,`transaksi_history`.`tanggal_pinjam` AS `tanggal_pinjam`,`transaksi_history`.`tanggal_kembali` AS `tanggal_kembali`,`transaksi_history`.`alat_id` AS `alat_id`,`tools`.`nama` AS `nama_tools`,`transaksi_history`.`qty` AS `qty`,`transaksi_history`.`keterangan` AS `keterangan`,`transaksi_history`.`foto_pinjam` AS `foto_pinjam`,`transaksi_history`.`foto_kembali` AS `foto_kembali` from ((`transaksi_history` join `karyawan` on((`transaksi_history`.`karyawan_id` = `karyawan`.`karyawan_id`))) join `tools` on((`transaksi_history`.`alat_id` = `tools`.`alat_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_transaksi_kembali`  AS  select `transaksi_history`.`no_trans` AS `no_trans`,`transaksi_history`.`karyawan_id` AS `karyawan_id`,`karyawan`.`nama` AS `nama_karyawan`,`transaksi_history`.`tanggal_pinjam` AS `tanggal_pinjam`,`transaksi_history`.`tanggal_kembali` AS `tanggal_kembali`,`transaksi_history`.`alat_id` AS `alat_id`,`tools`.`nama` AS `nama_tools`,`transaksi_history`.`qty` AS `qty`,`transaksi_history`.`keterangan` AS `keterangan`,`transaksi_history`.`foto_pinjam` AS `foto_pinjam` from ((`transaksi_history` join `karyawan` on((`transaksi_history`.`karyawan_id` = `karyawan`.`karyawan_id`))) join `tools` on((`transaksi_history`.`alat_id` = `tools`.`alat_id`))) ;
 
 -- --------------------------------------------------------
 

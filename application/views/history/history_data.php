@@ -50,7 +50,7 @@
             <th>TANGGAL PINJAM</th>
             <th>TANGGAL KEMBALI</th>
             <th>KETERANGAN</th>
-            <th colspan="2">Foto</th>
+            <th>Foto</th>
             <th><center>AKSI</center></th>
           </tr>
         </thead>
@@ -69,11 +69,6 @@
               <td>
                 <a href="<?= base_url().$data->foto_pinjam ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="click to zoom">
                   <img src="<?= base_url().$data->foto_pinjam ?>" alt="foto pinjam" style="height: 60px; width: auto;">
-                </a>
-              </td>
-              <td>
-                <a href="<?= base_url().$data->foto_kembali ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="click to zoom">
-                  <img src="<?= base_url().$data->foto_kembali ?>" alt="foto pinjam" style="height: 60px; width: auto;">
                 </a>
               </td>
               <td class="text-center" width="160px">

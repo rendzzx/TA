@@ -70,11 +70,12 @@
             <br>
 
             <div class="form-group" id="upfoto">
-              <label>Foto</label>
-              <div class="input-group">
-                <div class="custom-file">
-                  <input type="file" accept="image/*" class="custom-file-input" name="foto" id="foto" required>
-                </div>
+              <div id="camera">Capture</div>
+              <div id="webcam">
+                <input type=button value="Capture" onClick="preview()">
+              </div>
+              <div id="simpan" style="display:none">
+                <input type=button value="Remove" onClick="batal()">
               </div>
             </div>
 
@@ -84,7 +85,7 @@
             </div>
     				
     				<div class="form-group">
-    					<button type="submit" name="<?=$page?>" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Simpan</button>
+    					<button type="submit" onClick="simpan()" name="<?=$page?>" class="btn btn-success btn-flat"><i class="fa fa-save"></i> Simpan</button>
     					<button type="reset" class="btn btn-flat"><i class="fa fa-reply"></i> Reset</button>
     				</div>
     			</form>
@@ -139,64 +140,96 @@
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="<?= base_url('assets/webcam/webcam.min.js'); ?>"></script>
 
 <script type="text/javascript">
   var listItem =[];
 
-$(document).ready(function() {
-  loaddata();
-    $('#tablealat').DataTable();
-    $('#tblselectalat').DataTable();
+  $(document).ready(function() {
+    loaddata();
+      $('#tablealat').DataTable();
+      $('#tblselectalat').DataTable();
 
-    $.fn.showItem = function(){
+      $.fn.showItem = function(){
+        var row  ='';
+        var no =1;
+          for(i=0; i<listItem.length; i++){
+            row +='<tr>';
+            row +='<td>'+no+'</td>';
+            row +='<td> <input type="hidden" readonly="true" name="tools[]" value="'+listItem[i][0]+'">'+listItem[i][0];
+            row +='<td>'+listItem[i][1]+'</td>';
+            row +='<td> <input type="number" name="jml[]" min="1" value="1">';
+            row +='</tr>';
+            no++;
+          }
+        $('#tbalat').html(row);
+        // console.log(listItem);
+      }
+
+      $('.btnSelectProduk').click(function(){
+          var id = $(this).data('id');
+          var nama = $(this).data('nama');
+          var stok = $(this).data('stok');
+
+          var item = [id,nama,stok];
+          listItem.push(item);
+          $(this).showItem();
+          $('#modalselecttolls').modal('toggle');
+      });
+  });
+
+  function loaddata() {
+    <?php if ($this->uri->segment(2) == 'edit') { ?>
+      $('#karyawan').attr('readonly','true');
+      $('#addtools').hide();
+      $('#upfoto').remove();
+      var alat_id     = <?= isset($alat_id) ? json_encode($alat_id) : ' ' ;?>;
+      var nama_tools  = <?= isset($nama_tools) ? json_encode($nama_tools) : ' ' ;?>;
+      var qty         = <?= isset($qty) ? json_encode($qty) : ' ' ;?>;
+
       var row  ='';
       var no =1;
-        for(i=0; i<listItem.length; i++){
+        for(i=0; i<alat_id.length; i++){
           row +='<tr>';
           row +='<td>'+no+'</td>';
-          row +='<td> <input type="hidden" readonly="true" name="tools[]" value="'+listItem[i][0]+'">'+listItem[i][0];
-          row +='<td>'+listItem[i][1]+'</td>';
-          row +='<td> <input type="number" name="jml[]" min="1" value="1">';
+          row +='<td> <input type="hidden" readonly="true" name="tools[]" value="'+alat_id[i]+'">'+alat_id[i];
+          row +='<td>'+nama_tools[i]+'</td>';
+          row +='<td> <input type="number" name="jml[]" min="1" value="'+qty[i]+'">';
           row +='</tr>';
           no++;
         }
       $('#tbalat').html(row);
-      // console.log(listItem);
-    }
+    <?php } ?>
+  }
 
-    $('.btnSelectProduk').click(function(){
-        var id = $(this).data('id');
-        var nama = $(this).data('nama');
-        var stok = $(this).data('stok');
+  Webcam.set({
+      width: 320,
+      height: 240,
+      image_format: 'jpg',
+      jpeg_quality: 100
+  });
+  Webcam.attach( '#camera' );
 
-        var item = [id,nama,stok];
-        listItem.push(item);
-        $(this).showItem();
-        $('#modalselecttolls').modal('toggle');
+  function preview() {
+      Webcam.freeze();
+      document.getElementById('webcam').style.display = 'none';
+      document.getElementById('simpan').style.display = '';
+  }
+
+  function batal() {
+      Webcam.unfreeze();
+      document.getElementById('webcam').style.display = '';
+      document.getElementById('simpan').style.display = 'none';
+  }
+        
+  function simpan() {
+    Webcam.snap( function(data_uri) {
+      console.log(data_uri);
+      Webcam.upload( data_uri, '<?=base_url('Peminjaman/proses'); ?>', function(code, text){});
+
+      Webcam.unfreeze();
+      document.getElementById('webcam').style.display = '';
+      document.getElementById('simpan').style.display = 'none';
     });
-});
-
-function loaddata() {
-  <?php if ($this->uri->segment(2) == 'edit') { ?>
-    $('#karyawan').attr('readonly','true');
-    $('#addtools').hide();
-    $('#upfoto').remove();
-    var alat_id     = <?= isset($alat_id) ? json_encode($alat_id) : ' ' ;?>;
-    var nama_tools  = <?= isset($nama_tools) ? json_encode($nama_tools) : ' ' ;?>;
-    var qty         = <?= isset($qty) ? json_encode($qty) : ' ' ;?>;
-
-    var row  ='';
-    var no =1;
-      for(i=0; i<alat_id.length; i++){
-        row +='<tr>';
-        row +='<td>'+no+'</td>';
-        row +='<td> <input type="hidden" readonly="true" name="tools[]" value="'+alat_id[i]+'">'+alat_id[i];
-        row +='<td>'+nama_tools[i]+'</td>';
-        row +='<td> <input type="number" name="jml[]" min="1" value="'+qty[i]+'">';
-        row +='</tr>';
-        no++;
-      }
-    $('#tbalat').html(row);
-  <?php } ?>
-}
+  }
 </script>
