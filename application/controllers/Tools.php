@@ -66,15 +66,12 @@ class Tools extends CI_Controller {
 			redirect('tools');
 	}
 
-	public function del($id)
-	{
+	public function del($id){
 		$this->tools_m->del($id);
-			if($this->db->affected_rows() > 0) {
-				// echo "<script>alert('Data Berhasil di Hapus');</script>";
-				$this->session->set_flashdata('success', 'Data Berhasil Dihapus');
-			}
-			// echo "<script>window.location='".site_url('tools')."';</script>";
-			redirect('tools');
+		if($this->db->affected_rows() > 0) {
+			$this->session->set_flashdata('success', 'Data Berhasil Dihapus');
+		}
+		redirect('tools');
 	}	
 
 	public function exportexcel(){

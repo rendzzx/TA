@@ -5,6 +5,13 @@
     <!-- Main content -->
 <section class="content">
 <?php $this->view('messages') ?>
+<?php if ($this->session->flashdata('error')) { ?>
+    <div class="row">
+      <div class="col-12 alert alert-danger" role="alert">
+        <?php echo $this->session->flashdata('error'); ?>
+      </div>
+    </div>
+  <?php } ?>
         <div class="box">
           <div class="box-header">
             <h3 class="box-title"> Tools</h3>

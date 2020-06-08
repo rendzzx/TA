@@ -148,7 +148,9 @@
   $(document).ready(function() {
     loaddata();
       $('#tablealat').DataTable();
-      $('#tblselectalat').DataTable();
+      $('#tblselectalat').DataTable({
+        "paging": false
+      });
 
       $.fn.showItem = function(){
         var row  ='';
@@ -167,6 +169,7 @@
       }
 
       $('.btnSelectProduk').click(function(){
+        console.log('akalak');
           var id = $(this).data('id');
           var nama = $(this).data('nama');
           var stok = $(this).data('stok');
